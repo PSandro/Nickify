@@ -2,7 +2,7 @@ package de.psandro.nickify.model;
 
 import com.comphenix.protocol.wrappers.WrappedSignedProperty;
 import com.google.common.collect.Multimap;
-import de.psandro.nickify.controller.NickEntity;
+import de.psandro.nickify.controller.nick.NickEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NonNull;

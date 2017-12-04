@@ -1,13 +1,11 @@
-package de.psandro.nickify.controller;
+package de.psandro.nickify.controller.nick;
 
 import org.bukkit.entity.Player;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
-import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
-import java.util.stream.Collectors;
 
 public interface NickManager {
 

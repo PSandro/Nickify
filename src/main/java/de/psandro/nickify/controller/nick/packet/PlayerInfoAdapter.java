@@ -1,4 +1,4 @@
-package de.psandro.nickify.controller.packet;
+package de.psandro.nickify.controller.nick.packet;
 
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.ListenerPriority;
@@ -6,8 +6,8 @@ import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.wrappers.EnumWrappers;
 import com.comphenix.protocol.wrappers.PlayerInfoData;
-import de.psandro.nickify.controller.NickManager;
-import de.psandro.nickify.controller.Nickable;
+import de.psandro.nickify.controller.nick.NickManager;
+import de.psandro.nickify.controller.nick.Nickable;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 

@@ -1,4 +1,4 @@
-package de.psandro.nickify.controller;
+package de.psandro.nickify.controller.nick;
 
 import com.google.common.base.Preconditions;
 import de.psandro.nickify.controller.exception.PlayerAlreadyNickedException;

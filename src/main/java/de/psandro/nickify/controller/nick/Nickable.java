@@ -1,4 +1,4 @@
-package de.psandro.nickify.controller;
+package de.psandro.nickify.controller.nick;
 
 import com.comphenix.protocol.wrappers.WrappedGameProfile;
 

@@ -1,9 +1,9 @@
-package de.psandro.nickify.controller.packet;
+package de.psandro.nickify.controller.nick.packet;
 
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
 import com.google.common.base.Preconditions;
-import de.psandro.nickify.controller.NickManager;
+import de.psandro.nickify.controller.nick.NickManager;
 import org.bukkit.plugin.Plugin;
 
 

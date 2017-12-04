@@ -3,8 +3,8 @@ package de.psandro.nickify.model;
 
 import com.comphenix.protocol.wrappers.WrappedGameProfile;
 import com.google.common.base.Preconditions;
-import de.psandro.nickify.controller.INickEntityFactory;
-import de.psandro.nickify.controller.NickEntity;
+import de.psandro.nickify.controller.nick.INickEntityFactory;
+import de.psandro.nickify.controller.nick.NickEntity;
 
 import java.util.*;
 import java.util.concurrent.ExecutionException;

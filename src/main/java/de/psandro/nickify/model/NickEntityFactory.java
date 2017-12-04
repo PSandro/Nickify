@@ -3,12 +3,13 @@ package de.psandro.nickify.model;
 
 import com.comphenix.protocol.wrappers.WrappedGameProfile;
 import com.google.common.base.Preconditions;
+import de.psandro.nickify.controller.INickEntityFactory;
 import de.psandro.nickify.controller.NickEntity;
 
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 
-public final class NickEntityFactory {
+public final class NickEntityFactory implements INickEntityFactory {
 
     private final SortedSet<CachedNickEntity> availableNickEntitys = new TreeSet<>(Comparator.comparingLong(CachedNickEntity::getLatestUse));
 

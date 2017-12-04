@@ -8,26 +8,18 @@ import java.util.Arrays;
 
 @AllArgsConstructor
 @EqualsAndHashCode
+@Getter
+@Setter
 public final class TeamView {
 
-    @Setter
-    @Getter
     private @NonNull
     String owner;
-    @Setter
-    @Getter
     private @NonNull
     String teamName;
-    @Setter
-    @Getter
     private @NonNull
     String prefix;
-    @Setter
-    @Getter
     private @NonNull
     String suffix;
-    @Setter
-    @Getter
     private @NonNull
     NameTagVisibility nameTagVisibility;
 

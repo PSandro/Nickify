@@ -31,7 +31,7 @@ public final class TabCompleteAdapter extends PacketAdapter {
 
     private Optional<Nickable> checkNickName(String option) {
         return this.nickManager.getNickables().stream().filter(nickable ->
-                nickable.getNickName().equalsIgnoreCase(option)
+                nickable.getNickEntity().getName().equalsIgnoreCase(option)
         ).findFirst();
     }
 
@@ -52,8 +52,8 @@ public final class TabCompleteAdapter extends PacketAdapter {
         if (text == null || text.length <= 0) return;
         final String current = text[text.length-1].toLowerCase();
         final String[] options = this.nickManager.getNickables().stream()
-                .filter(nickable -> nickable.getNickName().toLowerCase().startsWith(current))
-                .map(Nickable::getNickName)
+                .filter(nickable -> nickable.getNickEntity().getName().toLowerCase().startsWith(current))
+                .map(nickable -> nickable.getNickEntity().getName())
                 .toArray(String[]::new);
         this.optionCache.put(event.getPlayer().getUniqueId(), options);
     }

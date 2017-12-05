@@ -3,7 +3,7 @@ package de.psandro.nickify.controller.nick;
 import com.google.common.base.Preconditions;
 import de.psandro.nickify.controller.exception.PlayerAlreadyNickedException;
 import de.psandro.nickify.controller.exception.PlayerNotNickedException;
-import de.psandro.nickify.controller.team.TeamUpdateConsumer;
+import de.psandro.nickify.controller.team.TeamNickUpdateConsumer;
 import de.psandro.nickify.model.CachedNickEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -19,9 +19,9 @@ public class DefaultNickManager implements NickManager {
 
     private final INickEntityFactory nickEntityFactory;
     private final Plugin plugin;
-    private final TeamUpdateConsumer updateConsumer;
+    private final TeamNickUpdateConsumer updateConsumer;
 
-    public DefaultNickManager(INickEntityFactory factory, final Plugin plugin, TeamUpdateConsumer updateConsumer) {
+    public DefaultNickManager(INickEntityFactory factory, final Plugin plugin, TeamNickUpdateConsumer updateConsumer) {
         Preconditions.checkNotNull(factory);
         nickEntityFactory = factory;
         this.plugin = plugin;

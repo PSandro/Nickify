@@ -9,8 +9,15 @@
     <version>1.0-SNAPSHOT</version>
 
     <packaging>jar</packaging>
-    <properties>
 
+    <properties>
+        <plugin.java>1.8</plugin.java>
+        <maven.compiler.target>${plugin.java}</maven.compiler.target>
+        <maven.compiler.source>${plugin.java}</maven.compiler.source>
+        <maven.compiler.testTarget>${plugin.java}</maven.compiler.testTarget>
+        <maven.compiler.testSource>${plugin.java}</maven.compiler.testSource>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <repositories>
@@ -42,7 +49,7 @@
             <artifactId>lombok</artifactId>
             <version>1.16.16</version>
             <scope>provided</scope>
-        </dependency><dependency/>
+        </dependency>
     </dependencies>
 
 

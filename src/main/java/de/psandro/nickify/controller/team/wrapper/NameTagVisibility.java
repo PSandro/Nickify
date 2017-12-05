@@ -5,8 +5,8 @@ public enum NameTagVisibility {
     HIDE_FOR_OTHER_TEAMS("hideForOtherTeams"),
     HIDE_FOR_OWN_TEAM("hideForOwnTeam"),
     NEVER("never");
-    private final String name;
 
+    private final String name;
     NameTagVisibility(String name) {
         this.name = name;
     }

@@ -28,7 +28,7 @@ public final class TeamInfo {
 
     public void nick(final @NonNull Nickable nick) {
         this.nickable = Optional.of(nick);
-        this.observers.forEach(observerEntity -> observerEntity.nameChange(nick.getNickName()));
+        this.observers.forEach(observerEntity -> observerEntity.changeName(nick.getNickName()));
     }
 
 }

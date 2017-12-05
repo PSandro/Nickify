@@ -3,10 +3,10 @@ package de.psandro.nickify.controller.team;
 import de.psandro.nickify.controller.team.wrapper.*;
 import lombok.*;
 
-import java.util.Arrays;
+import java.util.Collections;
 
 
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
 @EqualsAndHashCode
 @Getter
 @Setter
@@ -23,7 +23,6 @@ public final class TeamView {
     private @NonNull
     NameTagVisibility nameTagVisibility;
 
-
     public CreateTeamPacket buildCreationPacket() {
         final CreateTeamPacket team = new CreateTeamPacket(this.teamName);
         team.setDisplayName(this.teamName);
@@ -34,19 +33,18 @@ public final class TeamView {
     }
 
     public RemoveTeamPacket buildRemovePacket() {
-        final RemoveTeamPacket team = new RemoveTeamPacket(this.teamName);
-        return team;
+        return new RemoveTeamPacket(this.teamName);
     }
 
     public PlayerRemoveTeamPacket buildMemberRemovePacket() {
         final PlayerRemoveTeamPacket team = new PlayerRemoveTeamPacket(this.teamName);
-        team.setPlayers(Arrays.asList(this.owner));
+        team.setPlayers(Collections.singletonList(this.owner));
         return team;
     }
 
     public PlayerAddTeamPacket buildMemberAddPacket() {
         final PlayerAddTeamPacket team = new PlayerAddTeamPacket(this.teamName);
-        team.setPlayers(Arrays.asList(this.owner));
+        team.setPlayers(Collections.singletonList(this.owner));
         return team;
     }
     public UpdateTeamPacket buildUpdatePacket() {

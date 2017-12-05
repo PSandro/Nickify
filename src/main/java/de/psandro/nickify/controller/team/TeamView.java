@@ -6,27 +6,36 @@ import lombok.*;
 import java.util.Collections;
 
 
-@AllArgsConstructor(access = AccessLevel.PACKAGE)
 @EqualsAndHashCode
 @Getter
 @Setter
 @ToString
-public final class TeamView {
+public final class TeamView extends TeamViewLayout{
 
     private @NonNull
     String owner;
     private @NonNull
     String teamName;
-    private @NonNull
-    String prefix;
-    private @NonNull
-    String suffix;
+
+    TeamView(String prefix, String suffix, String owner, String teamName) {
+        super(prefix, suffix);
+        this.owner = owner;
+        this.teamName = teamName;
+    }
+
+    TeamView(TeamView teamView) {
+        this(teamView.getPrefix(), teamView.getSuffix(), teamView.getOwner(), teamView.getTeamName());
+    }
+
+    TeamView(TeamViewLayout teamViewLayout, String owner, String teamName) {
+        this(teamViewLayout.getPrefix(), teamViewLayout.getSuffix(), owner, teamName);
+    }
 
     public CreateTeamPacket buildCreationPacket() {
         final CreateTeamPacket team = new CreateTeamPacket(this.teamName);
         team.setDisplayName(this.teamName);
-        team.setPrefix(this.prefix);
-        team.setSuffix(this.suffix);
+        team.setPrefix(super.getPrefix());
+        team.setSuffix(super.getSuffix());
         team.setPlayers(Collections.singletonList(this.owner));
         return team;
     }
@@ -49,8 +58,8 @@ public final class TeamView {
     public UpdateTeamPacket buildUpdatePacket() {
         final UpdateTeamPacket team = new UpdateTeamPacket(this.teamName);
         team.setDisplayName(this.teamName);
-        team.setPrefix(this.prefix);
-        team.setSuffix(this.suffix);
+        team.setPrefix(super.getPrefix());
+        team.setSuffix(super.getSuffix());
         return team;
     }
 

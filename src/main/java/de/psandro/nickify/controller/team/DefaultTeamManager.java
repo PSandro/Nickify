@@ -58,13 +58,13 @@ public final class DefaultTeamManager implements TeamManager {
 
     @Override
     public TeamNickUpdateConsumer getUpdateConsumer() {
-        return (player, nickable) -> {
+        return (player, nickable, exceptions) -> {
             final TeamInfo teamInfo = this.getTeamInfo(player.getUniqueId());
             if (teamInfo == null) return;
             if (nickable == null) {
                 teamInfo.unnick();
             } else {
-                teamInfo.nick(nickable);
+                teamInfo.nick(nickable, exceptions);
             }
 
         };

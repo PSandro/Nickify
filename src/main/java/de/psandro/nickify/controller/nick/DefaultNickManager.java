@@ -4,6 +4,7 @@ import com.google.common.base.Preconditions;
 import de.psandro.nickify.controller.exception.PlayerAlreadyNickedException;
 import de.psandro.nickify.controller.exception.PlayerNotNickedException;
 import de.psandro.nickify.controller.team.TeamNickUpdateConsumer;
+import de.psandro.nickify.controller.team.TeamViewLayout;
 import de.psandro.nickify.model.CachedNickEntity;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -42,39 +43,38 @@ public class DefaultNickManager implements NickManager {
     }
 
     @Override
-    public Nickable nick(Player player, String name) throws ExecutionException, InterruptedException {
-        if (this.nickableMap.containsKey(player.getUniqueId()))
-            throw new PlayerAlreadyNickedException(player.getName());
-        final NickEntity entity = this.nickEntityFactory.getByName(name);
-        final NickedPlayer nickedPlayer = new NickedPlayer(player, entity);
-        this.nickableMap.put(player.getUniqueId(), nickedPlayer);
-        this.updatePlayer(player, nickedPlayer);
-        return nickedPlayer;
+    public Nickable nick(Player player, UUID uuid, TeamViewLayout layout) throws ExecutionException, InterruptedException {
+        return this.nick(player, uuid, layout, new HashSet<>());
     }
 
     @Override
-    public Nickable nick(Player player, UUID uuid) throws ExecutionException, InterruptedException {
+    public Nickable nick(Player player, UUID uuid, TeamViewLayout layout, Set<UUID> exceptions) throws ExecutionException, InterruptedException {
         if (this.nickableMap.containsKey(player.getUniqueId()))
             throw new PlayerAlreadyNickedException(player.getName());
         final NickEntity entity = this.nickEntityFactory.getByUUID(uuid);
-        final NickedPlayer nickedPlayer = new NickedPlayer(player, entity);
+        final NickedPlayer nickedPlayer = new NickedPlayer(player, entity, exceptions, layout);
         this.nickableMap.put(player.getUniqueId(), nickedPlayer);
-        this.updatePlayer(player, nickedPlayer);
+        this.updatePlayer(player, nickedPlayer, exceptions);
         return nickedPlayer;
     }
 
     @Override
-    public void unnick(Player player) {
+    public void unnick(Player player, Set<UUID> exceptions) {
         if (!this.nickableMap.containsKey(player.getUniqueId()))
             throw new PlayerNotNickedException(player.getName());
         final Nickable nickable = this.nickableMap.get(player.getUniqueId());
         this.nickableMap.remove(player.getUniqueId());
-        this.updatePlayer(player, null);
+        this.updatePlayer(player, null, exceptions);
         if (nickable.getNickEntity() instanceof CachedNickEntity)
             this.nickEntityFactory.returnNickEntity((CachedNickEntity) nickable.getNickEntity());
     }
 
-    private void updatePlayer(final Player player, final Nickable nickable) {
+    @Override
+    public void unnick(Player player) {
+        this.unnick(player, new HashSet<>());
+    }
+
+    private void updatePlayer(final Player player, final Nickable nickable, Set<UUID> exceptions) {
         final Collection<? extends Player> players = player.getWorld().getPlayers();
         players.stream().filter(p -> p.canSee(player)).forEach(p -> {
             p.hidePlayer(player);
@@ -83,7 +83,7 @@ public class DefaultNickManager implements NickManager {
                 public void run() {
                     if (!p.isOnline()) return;
                     p.showPlayer(player);
-                    DefaultNickManager.this.updateConsumer.accept(player, nickable);
+                    DefaultNickManager.this.updateConsumer.accept(player, nickable, exceptions);
 
                 }
             }.runTaskLater(this.plugin, 2);

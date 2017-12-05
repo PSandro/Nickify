@@ -1,13 +1,13 @@
 package de.psandro.nickify.controller.team;
 
 import de.psandro.nickify.controller.nick.Nickable;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.Setter;
 import org.bukkit.entity.Player;
 
-import java.util.LinkedHashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Getter
 public final class TeamInfo {
@@ -17,6 +17,7 @@ public final class TeamInfo {
     Optional<Nickable> nickable;
     private final @NonNull
     Set<ObserverEntity> observers;
+    @Setter(AccessLevel.PACKAGE)
     private @NonNull
     TeamView defaultTeamView;
 
@@ -31,22 +32,43 @@ public final class TeamInfo {
         this(owner, observers, defaultTeamView, null);
     }
 
-    public void nick(final @NonNull Nickable nick) {
+    public void nick(final @NonNull Nickable nick, @NonNull Set<UUID> exceptions) {
         this.nickable = Optional.of(nick);
-        this.observers.forEach(observerEntity -> {
-            if (!observerEntity.getUuid().equals(this.owner.getUniqueId()))
+        this.observers.stream().filter(observerEntity -> !exceptions.contains(observerEntity)).forEach(observerEntity -> {
+            if (!observerEntity.getUuid().equals(this.owner.getUniqueId())) {
+                observerEntity.updateTeamView(nick.getTeamViewLayout());
+                observerEntity.updateView();
                 observerEntity.changeName(nick.getNickEntity().getName());
+            }
+
         });
     }
 
+    public void nick(final @NonNull Nickable nick) {
+        this.nick(nick, new HashSet<>());
+    }
+
     public void unnick() {
+        this.unnick(new HashSet<>());
+    }
+
+    public void unnick(@NonNull Set<UUID> exceptions) {
         this.nickable = Optional.empty();
-        this.observers.forEach(observerEntity -> observerEntity.changeName(this.owner.getName()));
+        this.observers.stream().filter(observerEntity -> !exceptions.contains(observerEntity)).forEach(observerEntity -> {
+             //TODO maybe store previous teamview in observer entity and recall it
+            observerEntity.changeName(this.owner.getName());
+            observerEntity.updateTeamView(this.defaultTeamView);
+            observerEntity.updateView();
+        });
     }
 
     public void registerObserver(final ObserverEntity observerEntity) {
         if (this.observers.contains(observerEntity)) return;
         this.observers.add(observerEntity);
+    }
+
+    public TeamViewLayout getDefaultTeamViewLayout() {
+        return this.defaultTeamView;
     }
 
     protected void spawn() {

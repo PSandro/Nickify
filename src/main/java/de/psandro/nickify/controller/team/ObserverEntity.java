@@ -1,24 +1,26 @@
 package de.psandro.nickify.controller.team;
 
-import com.comphenix.protocol.events.PacketContainer;
-import de.psandro.nickify.controller.team.wrapper.PlayerRemoveTeamPacket;
 import lombok.*;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import javax.annotation.Nullable;
 import java.util.UUID;
 
-@AllArgsConstructor
 @Getter
 @EqualsAndHashCode
 public final class ObserverEntity {
     private final @NonNull
     UUID uuid;
-    private final @Nullable
+    private final @NonNull
     TeamView teamView;
     @Setter
     private boolean ignoreNameChange;
+
+    public ObserverEntity(UUID uuid, TeamView teamView, boolean ignoreNameChange) {
+        this.uuid = uuid;
+        this.teamView = new TeamView(teamView);
+        this.ignoreNameChange = ignoreNameChange;
+    }
 
     public void changeName(String name) {
         this.changeName(name, false);
@@ -49,6 +51,10 @@ public final class ObserverEntity {
         final Player player = Bukkit.getPlayer(this.uuid);
         if (player == null) return;
         this.teamView.buildRemovePacket().sendPacket(player);
+    }
+
+    public void updateTeamView(TeamViewLayout layout) {
+        layout.executeOn(this.teamView);
     }
 
 }

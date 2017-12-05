@@ -34,16 +34,16 @@ public final class DefaultTeamViewFactory implements TeamViewFactory {
 
 
     @Override
-    public TeamView createTeamView(String owner, String prefix, String suffix, int priorityIndex) {
+    public TeamView createTeamView(String owner, TeamViewLayout teamViewLayout, int priorityIndex) {
         Preconditions.checkArgument(owner.length() <= 16);
-        Preconditions.checkArgument(prefix.length() <= 16);
-        Preconditions.checkArgument(suffix.length() <= 16);
+        Preconditions.checkArgument(teamViewLayout.getPrefix().length() <= 16);
+        Preconditions.checkArgument(teamViewLayout.getSuffix().length() <= 16);
         Preconditions.checkArgument(priorityIndex >= 0);
         Preconditions.checkArgument(priorityIndex < 93);
 
         final String teamName = this.buildTeamName(owner, priorityIndex);
 
-        return new TeamView(owner, teamName, prefix, suffix);
+        return new TeamView(teamViewLayout, owner, teamName);
     }
 
 }

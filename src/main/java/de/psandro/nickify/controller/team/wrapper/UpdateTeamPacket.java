@@ -30,11 +30,4 @@ public final class UpdateTeamPacket extends TeamPacket {
         this.handle.getStrings().write(3, value);
     }
 
-    public String getNameTagVisibility() {
-        return (String) this.handle.getStrings().read(4);
-    }
-
-    public void setNameTagVisibility(NameTagVisibility nameTagVisibility) {
-        this.handle.getStrings().write(4, nameTagVisibility.toString());
-    }
 }

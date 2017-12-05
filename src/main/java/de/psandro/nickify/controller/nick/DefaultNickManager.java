@@ -3,6 +3,8 @@ package de.psandro.nickify.controller.nick;
 import com.google.common.base.Preconditions;
 import de.psandro.nickify.controller.exception.PlayerAlreadyNickedException;
 import de.psandro.nickify.controller.exception.PlayerNotNickedException;
+import de.psandro.nickify.controller.team.TeamUpdateConsumer;
+import de.psandro.nickify.model.CachedNickEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -17,11 +19,13 @@ public class DefaultNickManager implements NickManager {
 
     private final INickEntityFactory nickEntityFactory;
     private final Plugin plugin;
+    private final TeamUpdateConsumer updateConsumer;
 
-    public DefaultNickManager(INickEntityFactory factory, final Plugin plugin) {
+    public DefaultNickManager(INickEntityFactory factory, final Plugin plugin, TeamUpdateConsumer updateConsumer) {
         Preconditions.checkNotNull(factory);
         nickEntityFactory = factory;
         this.plugin = plugin;
+        this.updateConsumer = updateConsumer;
     }
 
 
@@ -43,7 +47,7 @@ public class DefaultNickManager implements NickManager {
         final NickEntity entity = this.nickEntityFactory.getByName(name);
         final NickedPlayer nickedPlayer = new NickedPlayer(player, entity);
         this.nickableMap.put(player.getUniqueId(), nickedPlayer);
-        this.updatePlayer(player);
+        this.updatePlayer(player, nickedPlayer);
         return nickedPlayer;
     }
 
@@ -54,7 +58,7 @@ public class DefaultNickManager implements NickManager {
         final NickEntity entity = this.nickEntityFactory.getByUUID(uuid);
         final NickedPlayer nickedPlayer = new NickedPlayer(player, entity);
         this.nickableMap.put(player.getUniqueId(), nickedPlayer);
-        this.updatePlayer(player);
+        this.updatePlayer(player, nickedPlayer);
         return nickedPlayer;
     }
 
@@ -64,10 +68,12 @@ public class DefaultNickManager implements NickManager {
             throw new PlayerNotNickedException(player.getName());
         final Nickable nickable = this.nickableMap.get(player.getUniqueId());
         this.nickableMap.remove(player.getUniqueId());
-        this.updatePlayer(player);
+        this.updatePlayer(player, nickable);
+        if (nickable.getNickEntity() instanceof CachedNickEntity)
+            this.nickEntityFactory.returnNickEntity((CachedNickEntity) nickable.getNickEntity());
     }
 
-    private void updatePlayer(Player player) {
+    private void updatePlayer(final Player player, final Nickable nickable) {
         final Collection<? extends Player> players = player.getWorld().getPlayers();
         players.stream().filter(p -> p.canSee(player)).forEach(p -> {
             p.hidePlayer(player);
@@ -76,6 +82,7 @@ public class DefaultNickManager implements NickManager {
                 public void run() {
                     if (!p.isOnline()) return;
                     p.showPlayer(player);
+                    DefaultNickManager.this.updateConsumer.accept(player, nickable);
                 }
             }.runTaskLater(this.plugin, 2);
         });

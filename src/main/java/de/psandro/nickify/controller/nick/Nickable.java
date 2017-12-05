@@ -8,7 +8,7 @@ public interface Nickable {
 
     String getRealName();
 
-    String getNickName();
+    NickEntity getNickEntity();
 
     UUID getUniqueId();
 

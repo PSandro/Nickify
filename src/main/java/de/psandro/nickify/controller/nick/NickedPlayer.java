@@ -14,7 +14,7 @@ import java.util.UUID;
 public final class NickedPlayer implements Nickable {
 
     private final String realName;
-    private final String nickName;
+    private final NickEntity nickEntity;
     private final UUID uniqueId;
     private final WrappedGameProfile fakeGameProfile;
 
@@ -22,7 +22,7 @@ public final class NickedPlayer implements Nickable {
         Preconditions.checkNotNull(player, "The player cannot be null!");
         Preconditions.checkNotNull(nickEntity, "The Nick Entity cannot be null!");
         this.realName = player.getName();
-        this.nickName = nickEntity.getName();
+        this.nickEntity = nickEntity;
         this.uniqueId = player.getUniqueId();
         this.fakeGameProfile = NickedPlayer.buildCustomProfile(player.getUniqueId(), nickEntity);
     }

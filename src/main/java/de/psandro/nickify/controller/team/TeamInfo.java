@@ -16,19 +16,19 @@ public final class TeamInfo {
     private final @NonNull Set<ObserverEntity> observers;
     private @NonNull TeamView defaultTeamView;
 
-    public TeamInfo(final Player owner, LinkedHashSet<ObserverEntity> observers, TeamView defaultTeamView, Optional<Nickable> nickable) {
+    protected TeamInfo(final Player owner, LinkedHashSet<ObserverEntity> observers, TeamView defaultTeamView, Nickable nickable) {
         this.owner = owner;
         this.observers = observers;
         this.defaultTeamView = defaultTeamView;
-        this.nickable = nickable;
+        this.nickable = Optional.ofNullable(nickable);
     }
-    public TeamInfo(final Player owner, LinkedHashSet<ObserverEntity> observers, TeamView defaultTeamView) {
-        this(owner, observers, defaultTeamView, Optional.empty());
+    protected TeamInfo(final Player owner, LinkedHashSet<ObserverEntity> observers, TeamView defaultTeamView) {
+        this(owner, observers, defaultTeamView, null);
     }
 
     public void nick(final @NonNull Nickable nick) {
         this.nickable = Optional.of(nick);
-        this.observers.forEach(observerEntity -> observerEntity.changeName(nick.getNickName()));
+        this.observers.forEach(observerEntity -> observerEntity.changeName(nick.getNickEntity().getName()));
     }
 
 }

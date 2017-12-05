@@ -1,0 +1,9 @@
+name: Nickify
+main: de.psandro.nickify.Nickify
+author: Verschraubt
+version: 1.0
+depend: [ProtocolLib]
+
+commands:
+  nick:
+  unnick:

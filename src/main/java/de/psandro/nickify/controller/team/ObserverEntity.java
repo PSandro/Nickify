@@ -1,5 +1,7 @@
 package de.psandro.nickify.controller.team;
 
+import com.comphenix.protocol.events.PacketContainer;
+import de.psandro.nickify.controller.team.wrapper.PlayerRemoveTeamPacket;
 import lombok.*;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -23,7 +25,7 @@ public final class ObserverEntity {
     }
 
     public void changeName(String name, boolean force) {
-        if (!this.ignoreNameChange && !force) return;
+        if (this.ignoreNameChange && !force) return;
         final Player player = Bukkit.getPlayer(this.uuid);
         if (player == null) return;
         this.teamView.buildMemberRemovePacket().sendPacket(player);
@@ -41,6 +43,12 @@ public final class ObserverEntity {
         final Player player = Bukkit.getPlayer(this.uuid);
         if (player == null) return;
         this.teamView.buildCreationPacket().sendPacket(player);
+    }
+
+    public void despawnView() {
+        final Player player = Bukkit.getPlayer(this.uuid);
+        if (player == null) return;
+        this.teamView.buildRemovePacket().sendPacket(player);
     }
 
 }

@@ -5,6 +5,7 @@ import de.psandro.nickify.controller.exception.PlayerAlreadyNickedException;
 import de.psandro.nickify.controller.exception.PlayerNotNickedException;
 import de.psandro.nickify.controller.team.TeamNickUpdateConsumer;
 import de.psandro.nickify.model.CachedNickEntity;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -68,7 +69,7 @@ public class DefaultNickManager implements NickManager {
             throw new PlayerNotNickedException(player.getName());
         final Nickable nickable = this.nickableMap.get(player.getUniqueId());
         this.nickableMap.remove(player.getUniqueId());
-        this.updatePlayer(player, nickable);
+        this.updatePlayer(player, null);
         if (nickable.getNickEntity() instanceof CachedNickEntity)
             this.nickEntityFactory.returnNickEntity((CachedNickEntity) nickable.getNickEntity());
     }
@@ -83,6 +84,7 @@ public class DefaultNickManager implements NickManager {
                     if (!p.isOnline()) return;
                     p.showPlayer(player);
                     DefaultNickManager.this.updateConsumer.accept(player, nickable);
+
                 }
             }.runTaskLater(this.plugin, 2);
         });

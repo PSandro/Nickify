@@ -10,6 +10,7 @@ import java.util.Collections;
 @EqualsAndHashCode
 @Getter
 @Setter
+@ToString
 public final class TeamView {
 
     private @NonNull
@@ -20,15 +21,13 @@ public final class TeamView {
     String prefix;
     private @NonNull
     String suffix;
-    private @NonNull
-    NameTagVisibility nameTagVisibility;
 
     public CreateTeamPacket buildCreationPacket() {
         final CreateTeamPacket team = new CreateTeamPacket(this.teamName);
         team.setDisplayName(this.teamName);
-        team.setNameTagVisibility(this.nameTagVisibility);
         team.setPrefix(this.prefix);
         team.setSuffix(this.suffix);
+        team.setPlayers(Collections.singletonList(this.owner));
         return team;
     }
 
@@ -50,7 +49,6 @@ public final class TeamView {
     public UpdateTeamPacket buildUpdatePacket() {
         final UpdateTeamPacket team = new UpdateTeamPacket(this.teamName);
         team.setDisplayName(this.teamName);
-        team.setNameTagVisibility(this.nameTagVisibility);
         team.setPrefix(this.prefix);
         team.setSuffix(this.suffix);
         return team;

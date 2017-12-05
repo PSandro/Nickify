@@ -1,7 +1,11 @@
 package de.psandro.nickify.controller.nick.packet;
 
+import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
+import com.comphenix.protocol.events.ListenerPriority;
+import com.comphenix.protocol.events.PacketAdapter;
+import com.comphenix.protocol.events.PacketEvent;
 import com.google.common.base.Preconditions;
 import de.psandro.nickify.controller.nick.NickManager;
 import org.bukkit.plugin.Plugin;
@@ -9,7 +13,7 @@ import org.bukkit.plugin.Plugin;
 
 public final class PacketHandler {
 
-    private final ProtocolManager protocolManager = ProtocolLibrary.getProtocolManager();
+    private final ProtocolManager protocolManager;
     private final NickManager nickManager;
     private final Plugin plugin;
 
@@ -18,6 +22,7 @@ public final class PacketHandler {
         Preconditions.checkNotNull(plugin, "Plugin cannot be null!");
         this.nickManager = nickManager;
         this.plugin = plugin;
+        this.protocolManager = ProtocolLibrary.getProtocolManager();
     }
 
     public void registerListener() {

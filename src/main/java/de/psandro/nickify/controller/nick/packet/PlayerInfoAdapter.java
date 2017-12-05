@@ -30,13 +30,17 @@ public final class PlayerInfoAdapter extends PacketAdapter {
         final EnumWrappers.PlayerInfoAction infoAction = event.getPacket().getPlayerInfoAction().read(0);
         if (infoAction != EnumWrappers.PlayerInfoAction.ADD_PLAYER) return;
 
+
+
         final List<PlayerInfoData> playerInfoDataList = event.getPacket().getPlayerInfoDataLists().read(0);
         final List<PlayerInfoData> fakePlayerInfoDataList = playerInfoDataList
                 .stream()
                 .map(playerInfoData -> {
                     final UUID uuid = playerInfoData.getProfile().getUUID();
                     final Nickable nickable = this.nickManager.getNickable(uuid);
-                    if (Bukkit.getPlayer(uuid) == null && nickable == null) return playerInfoData;
+                    if (event.getPlayer().getUniqueId().equals(uuid)) return playerInfoData;
+
+                    if (Bukkit.getPlayer(uuid) == null || nickable == null) return playerInfoData;
                     else {
                         return new PlayerInfoData(
                                 nickable.getFakeGameProfile(),

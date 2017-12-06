@@ -4,4 +4,7 @@ public interface TeamViewFactory {
 
     TeamView createTeamView(String owner, TeamViewLayout layout, int priority);
 
+
+    void resetCounter();
+
 }

@@ -14,6 +14,12 @@ public interface NickManager {
     @Nullable
     Nickable getNickable(UUID uuid);
 
+    @Nullable
+    NickEntity getNickEntity(String nickname);
+
+    @Nullable
+    NickEntity getNickEntity(UUID nickUuid);
+
     Collection<Nickable> getNickables();
 
     Nickable nick(Player player, UUID uuid, TeamViewLayout layout) throws ExecutionException, InterruptedException;

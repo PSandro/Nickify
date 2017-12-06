@@ -56,5 +56,8 @@ public final class RegisterListener implements Listener {
         final TeamInfo teamView = this.nameTagManager.getTeamManager().getTeamInfo(player.getUniqueId());
         if (teamView == null) return;
         this.nameTagManager.getTeamManager().deleteTeam(teamView);
+        if (Bukkit.getOnlinePlayers().size() <= 1) {
+            this.nameTagManager.getTeamManager().getTeamViewFactory().resetCounter();
+        }
     }
 }

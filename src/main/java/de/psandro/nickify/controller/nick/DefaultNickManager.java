@@ -1,6 +1,7 @@
 package de.psandro.nickify.controller.nick;
 
 import com.google.common.base.Preconditions;
+import de.psandro.nickify.controller.exception.NickNameAlreadyInUse;
 import de.psandro.nickify.controller.exception.PlayerAlreadyNickedException;
 import de.psandro.nickify.controller.exception.PlayerNotNickedException;
 import de.psandro.nickify.controller.team.TeamNickUpdateConsumer;
@@ -31,10 +32,19 @@ public class DefaultNickManager implements NickManager {
     }
 
 
-    @Nullable
     @Override
     public Nickable getNickable(UUID uuid) {
         return this.nickableMap.get(uuid);
+    }
+
+    @Override
+    public NickEntity getNickEntity(String nickname) {
+        return this.nickableMap.values().parallelStream().map(Nickable::getNickEntity).filter(entity -> entity.getName().equalsIgnoreCase(nickname)).findAny().orElse(null);
+    }
+
+    @Override
+    public NickEntity getNickEntity(UUID nickUniqueId) {
+        return this.nickableMap.values().parallelStream().map(Nickable::getNickEntity).filter(entity -> entity.getUniqueId().equals(nickUniqueId)).findAny().orElse(null);
     }
 
     @Override
@@ -51,6 +61,9 @@ public class DefaultNickManager implements NickManager {
     public Nickable nick(Player player, UUID uuid, TeamViewLayout layout, Set<UUID> exceptions) throws ExecutionException, InterruptedException {
         if (this.nickableMap.containsKey(player.getUniqueId()))
             throw new PlayerAlreadyNickedException(player.getName());
+        final NickEntity existing = this.getNickEntity(uuid);
+        if (existing != null) throw new NickNameAlreadyInUse(existing.getName());
+
         final NickEntity entity = this.nickEntityFactory.getByUUID(uuid);
         final NickedPlayer nickedPlayer = new NickedPlayer(player, entity, exceptions, layout);
         this.nickableMap.put(player.getUniqueId(), nickedPlayer);

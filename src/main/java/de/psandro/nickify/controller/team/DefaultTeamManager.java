@@ -1,7 +1,6 @@
 package de.psandro.nickify.controller.team;
 
 import de.psandro.nickify.controller.nick.Nickable;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import javax.annotation.Nullable;

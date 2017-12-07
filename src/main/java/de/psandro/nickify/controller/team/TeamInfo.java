@@ -55,7 +55,7 @@ public final class TeamInfo {
     public void unnick(@NonNull Set<UUID> exceptions) {
         this.nickable = Optional.empty();
         this.observers.stream().filter(observerEntity -> !exceptions.contains(observerEntity)).forEach(observerEntity -> {
-             //TODO maybe store previous teamview in observer entity and recall it
+            //TODO maybe store previous teamview in observer entity and recall it
             observerEntity.changeName(this.owner.getName());
             observerEntity.updateTeamView(this.defaultTeamView);
             observerEntity.updateView();
@@ -69,6 +69,12 @@ public final class TeamInfo {
 
     public TeamViewLayout getDefaultTeamViewLayout() {
         return this.defaultTeamView;
+    }
+
+    public TeamView getDefaultActiveTeamView() {
+        if (!this.nickable.isPresent()) return new TeamView(this.defaultTeamView);
+        final Nickable nickable = this.nickable.get();
+        return new TeamView(nickable.getTeamViewLayout(), nickable.getNickEntity().getName(), this.defaultTeamView.getTeamName());
     }
 
     protected void spawn() {

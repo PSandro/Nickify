@@ -3,7 +3,6 @@ package de.psandro.nickify.controller.nick;
 import de.psandro.nickify.controller.team.TeamViewLayout;
 import org.bukkit.entity.Player;
 
-import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.Set;
 import java.util.UUID;
@@ -11,13 +10,10 @@ import java.util.concurrent.ExecutionException;
 
 public interface NickManager {
 
-    @Nullable
     Nickable getNickable(UUID uuid);
 
-    @Nullable
     NickEntity getNickEntity(String nickname);
 
-    @Nullable
     NickEntity getNickEntity(UUID nickUuid);
 
     Collection<Nickable> getNickables();

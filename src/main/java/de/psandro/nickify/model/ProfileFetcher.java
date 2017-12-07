@@ -8,11 +8,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.mojang.authlib.GameProfile;
-import com.mojang.authlib.properties.PropertyMap;
-import com.mojang.util.UUIDTypeAdapter;
 
-import javax.annotation.Nullable;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -28,9 +24,8 @@ public final class ProfileFetcher {
     private static final ExecutorService executorService = Executors.newCachedThreadPool();
 
     private static final Gson gson = new GsonBuilder()
-            .registerTypeAdapter(GameProfile.class, new ProfileDeserializer())
+            .registerTypeAdapter(WrappedGameProfile.class, new ProfileDeserializer())
             .registerTypeAdapter(UUID.class, new UUIDTypeAdapter())
-            .registerTypeAdapter(PropertyMap.class, new PropertyMap.Serializer())
             .create();
 
     private static final Cache<UUID, WrappedGameProfile> profileCache = CacheBuilder.newBuilder().expireAfterWrite(1, TimeUnit.HOURS).build();
@@ -63,7 +58,6 @@ public final class ProfileFetcher {
         });
     }
 
-    @Nullable
     public static final Future<WrappedGameProfile> fetchProfile(final String name) {
         //TODO improfe
         return executorService.submit(() -> {
@@ -94,10 +88,9 @@ public final class ProfileFetcher {
 
             if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 final String json = new BufferedReader(new InputStreamReader(connection.getInputStream())).readLine();
-                final GameProfile result = gson.fromJson(json, GameProfile.class);
-                final WrappedGameProfile wrappedGameProfile = WrappedGameProfile.fromHandle(result);
-                profileCache.put(result.getId(), wrappedGameProfile);
-                return wrappedGameProfile;
+                final WrappedGameProfile result = gson.fromJson(json, WrappedGameProfile.class);
+                profileCache.put(result.getUUID(), result);
+                return result;
             } else {
                 JsonObject error = (JsonObject) new JsonParser()
                         .parse(new BufferedReader(new InputStreamReader(connection.getErrorStream())).readLine());

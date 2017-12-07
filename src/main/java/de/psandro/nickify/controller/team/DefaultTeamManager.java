@@ -3,7 +3,6 @@ package de.psandro.nickify.controller.team;
 import de.psandro.nickify.controller.nick.Nickable;
 import org.bukkit.entity.Player;
 
-import javax.annotation.Nullable;
 import java.util.*;
 
 public final class DefaultTeamManager implements TeamManager {
@@ -50,7 +49,6 @@ public final class DefaultTeamManager implements TeamManager {
     }
 
     @Override
-    @Nullable
     public TeamInfo getTeamInfo(UUID uuid) {
         return this.teamBindings.get(uuid);
     }

@@ -7,12 +7,10 @@ import de.psandro.nickify.controller.exception.PlayerNotNickedException;
 import de.psandro.nickify.controller.team.TeamNickUpdateConsumer;
 import de.psandro.nickify.controller.team.TeamViewLayout;
 import de.psandro.nickify.model.CachedNickEntity;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import javax.annotation.Nullable;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 

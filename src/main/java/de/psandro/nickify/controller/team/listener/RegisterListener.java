@@ -43,7 +43,7 @@ public final class RegisterListener implements Listener {
 
 
         this.nameTagManager.getTeamManager().getTeamInfos().forEach(info -> {
-            final ObserverEntity observerEntity = new ObserverEntity(player.getUniqueId(), info.getDefaultTeamView(), false);
+            final ObserverEntity observerEntity = new ObserverEntity(player.getUniqueId(), info.getDefaultActiveTeamView(), false);
             info.getObservers().add(observerEntity);
             observerEntity.spawnView();
         });

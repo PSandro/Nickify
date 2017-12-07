@@ -2,7 +2,6 @@ package de.psandro.nickify.controller.nick;
 
 import com.comphenix.protocol.wrappers.WrappedGameProfile;
 import com.google.common.base.Preconditions;
-import de.psandro.nickify.controller.team.TeamView;
 import de.psandro.nickify.controller.team.TeamViewLayout;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -10,7 +9,6 @@ import lombok.Getter;
 import lombok.NonNull;
 import org.bukkit.entity.Player;
 
-import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 

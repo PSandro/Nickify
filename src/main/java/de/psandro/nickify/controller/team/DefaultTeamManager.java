@@ -8,7 +8,6 @@ import java.util.*;
 public final class DefaultTeamManager implements TeamManager {
 
     private final Map<UUID, TeamInfo> teamBindings = new HashMap<>();
-    private final TeamViewFactory viewFactory = new DefaultTeamViewFactory();
 
     public DefaultTeamManager() {
     }
@@ -67,8 +66,4 @@ public final class DefaultTeamManager implements TeamManager {
         };
     }
 
-    @Override
-    public TeamViewFactory getTeamViewFactory() {
-        return this.viewFactory;
-    }
 }

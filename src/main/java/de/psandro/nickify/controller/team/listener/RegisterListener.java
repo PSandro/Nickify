@@ -1,10 +1,7 @@
 package de.psandro.nickify.controller.team.listener;
 
 import de.psandro.nickify.controller.NameTagManager;
-import de.psandro.nickify.controller.team.ObserverEntity;
-import de.psandro.nickify.controller.team.TeamInfo;
-import de.psandro.nickify.controller.team.TeamView;
-import de.psandro.nickify.controller.team.TeamViewLayout;
+import de.psandro.nickify.controller.team.*;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import org.bukkit.Bukkit;
@@ -32,7 +29,7 @@ public final class RegisterListener implements Listener {
     public void onPlayerJoin(final PlayerJoinEvent event) {
         final Player player = event.getPlayer();
         final TeamViewLayout layout = new TeamViewLayout("§cAdmin ", "§b lol");
-        final TeamView teamView = this.nameTagManager.getTeamManager().getTeamViewFactory().createTeamView(player.getName(), layout, 1);
+        final TeamView teamView = TeamViewFactory.createTeamView(player.getName(), layout, 1);
         System.out.println(teamView.toString());
         final TeamInfo teamInfo = this.nameTagManager.getTeamManager().createTeamInfo(player, teamView, new LinkedHashSet(Bukkit.getOnlinePlayers().stream().map(all -> new ObserverEntity(all.getUniqueId(), teamView, false)).collect(Collectors.toSet())));
         player.sendMessage("TeamInfo initialisiert! Observers: " + teamInfo.getObservers().size());
@@ -57,7 +54,7 @@ public final class RegisterListener implements Listener {
         if (teamView == null) return;
         this.nameTagManager.getTeamManager().deleteTeam(teamView);
         if (Bukkit.getOnlinePlayers().size() <= 1) {
-            this.nameTagManager.getTeamManager().getTeamViewFactory().resetCounter();
+            TeamViewFactory.resetCounter();
         }
     }
 }

@@ -25,5 +25,4 @@ public interface TeamManager {
 
     TeamNickUpdateConsumer getUpdateConsumer();
 
-    TeamViewFactory getTeamViewFactory();
 }

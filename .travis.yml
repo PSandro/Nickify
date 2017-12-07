@@ -1,6 +1,6 @@
 language: java
 jdk: oraclejdk8
-script: mvn clean install
+script: mvn package
 cache:
   directories:
   - $HOME/.m2

@@ -8,7 +8,7 @@ deploy:
   file: 'Nickify.jar'
   skip_cleanup: true
   on:
-    tags
+    branche: release
 cache:
   directories:
   - $HOME/.m2

@@ -18,7 +18,7 @@ public final class DefaultTeamViewFactory implements TeamViewFactory {
     private static final AtomicInteger count = new AtomicInteger();
 
 
-    public String buildTeamName(String owner, int priorotyIndex) {
+    private String buildTeamName(String owner, int priorotyIndex) {
         final String postName;
         if (owner.length() > 3) {
             postName = owner.substring(0, 3);
@@ -61,7 +61,7 @@ public final class DefaultTeamViewFactory implements TeamViewFactory {
         Preconditions.checkArgument(teamViewLayout.getPrefix().length() <= 16);
         Preconditions.checkArgument(teamViewLayout.getSuffix().length() <= 16);
         Preconditions.checkArgument(priorityIndex >= 0);
-        Preconditions.checkArgument(priorityIndex < 93);
+        Preconditions.checkArgument(priorityIndex < (PRIORITYS.length - 1));
 
         final String teamName = this.buildTeamName(owner, priorityIndex);
 

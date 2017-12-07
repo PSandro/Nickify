@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 
 @AllArgsConstructor
 public final class RegisterListener implements Listener {
-
+//TODO implement nice looking UI
 
     private final @NonNull
     NameTagManager nameTagManager;

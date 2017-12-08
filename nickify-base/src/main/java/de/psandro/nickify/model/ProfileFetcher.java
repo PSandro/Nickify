@@ -39,7 +39,7 @@ public final class ProfileFetcher {
                 return cachedUUID;
             }
 
-            final URL sessionURL = new URL(String.format(MOJANG_SESSION_URL, name));
+            final URL sessionURL = new URL(String.format(MOJANG_UUID_URL, name));
             final HttpURLConnection connection = (HttpURLConnection) sessionURL.openConnection();
             connection.setReadTimeout(5000);
 

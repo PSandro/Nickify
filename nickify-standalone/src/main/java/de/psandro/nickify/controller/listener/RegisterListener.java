@@ -1,4 +1,4 @@
-package de.psandro.nickify.controller.team.listener;
+package de.psandro.nickify.controller.listener;
 
 import de.psandro.nickify.controller.NameTagManager;
 import de.psandro.nickify.controller.team.*;
@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
 
 @AllArgsConstructor
 public final class RegisterListener implements Listener {
-//TODO implement nice looking UI
 
     private final @NonNull
     NameTagManager nameTagManager;
@@ -28,15 +27,11 @@ public final class RegisterListener implements Listener {
     @EventHandler
     public void onPlayerJoin(final PlayerJoinEvent event) {
         final Player player = event.getPlayer();
-        final TeamViewLayout layout = new TeamViewLayout("§cAdmin ", "§b lol");
+        final TeamViewLayout layout = new TeamViewLayout("§cAdmin ", "");
         final TeamView teamView = TeamViewFactory.createTeamView(player.getName(), layout, 1);
         System.out.println(teamView.toString());
         final TeamInfo teamInfo = this.nameTagManager.getTeamManager().createTeamInfo(player, teamView, new LinkedHashSet(Bukkit.getOnlinePlayers().stream().map(all -> new ObserverEntity(all.getUniqueId(), teamView, false)).collect(Collectors.toSet())));
-        player.sendMessage("TeamInfo initialisiert! Observers: " + teamInfo.getObservers().size());
-        Bukkit.getScheduler().runTaskLater(plugin, () -> {
-            this.nameTagManager.getTeamManager().spawnTeam(teamInfo);
-            player.sendMessage("Team erschaffen!");
-        }, 2);
+        this.nameTagManager.getTeamManager().spawnTeam(teamInfo);
 
 
         this.nameTagManager.getTeamManager().getTeamInfos().forEach(info -> {

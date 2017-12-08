@@ -2,13 +2,13 @@ package de.psandro.nickify;
 
 import de.psandro.nickify.controller.DefaultNameTagManager;
 import de.psandro.nickify.controller.NameTagManager;
+import de.psandro.nickify.controller.listener.RegisterListener;
 import de.psandro.nickify.controller.nick.DefaultNickManager;
 import de.psandro.nickify.controller.nick.INickEntityFactory;
 import de.psandro.nickify.controller.nick.NickManager;
 import de.psandro.nickify.controller.nick.packet.PacketHandler;
 import de.psandro.nickify.controller.team.DefaultTeamManager;
 import de.psandro.nickify.controller.team.TeamManager;
-import de.psandro.nickify.controller.team.listener.RegisterListener;
 import de.psandro.nickify.model.NickEntityFactory;
 import de.psandro.nickify.view.command.NickCommand;
 import de.psandro.nickify.view.command.UnnickCommand;

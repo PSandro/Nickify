@@ -15,7 +15,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public final class NickCommand implements CommandExecutor {
 
-    private static final TeamViewLayout LAYOUT = new TeamViewLayout("§6Genickt ", " Hallo");
+    private static final TeamViewLayout LAYOUT = new TeamViewLayout("§6Premium ", "");
 
     private final @NonNull
     NameTagManager nameTagManager;

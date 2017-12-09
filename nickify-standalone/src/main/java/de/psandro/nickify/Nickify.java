@@ -22,6 +22,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 public final class Nickify extends JavaPlugin {
 
@@ -68,11 +69,11 @@ public final class Nickify extends JavaPlugin {
                 settingsEntity.getTeamViewPresets(),
                 settingsEntity.getDefaultPreset(),
                 settingsEntity.getNickPresets());
-        final MessageManager messageManager = new MessageManager(messageEntity.getMessages());
+        final MessageManager messageManager = new MessageManager(messageEntity);
         nameTagManager = new DefaultNameTagManager(teamManager, nickManager);
         final PacketHandler packetHandler = new PacketHandler(nameTagManager.getNickManager(), this);
         packetHandler.registerListener();
-        final InventoryFactory inventoryFactory = new InventoryFactory();
+        final InventoryFactory inventoryFactory = new InventoryFactory(configManager);
 
         this.getServer().getPluginManager().registerEvents(inventoryFactory, this);
         this.getServer().getPluginManager().registerEvents(new RegisterListener(nameTagManager, teamViewFetcher), this);

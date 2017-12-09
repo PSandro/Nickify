@@ -2,18 +2,21 @@ package de.psandro.nickify.model;
 
 
 import com.google.common.base.Charsets;
+import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import de.psandro.nickify.controller.message.MessageFormat;
 import de.psandro.nickify.controller.message.MessageId;
 import de.psandro.nickify.controller.team.TeamViewLayout;
+import de.psandro.nickify.model.serialisation.MessageEntitySerializer;
 import de.psandro.nickify.model.serialisation.TeamViewPresetSerializer;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
+import java.util.Map;
 import java.util.Set;
 
 public final class FileManager {
@@ -28,11 +31,11 @@ public final class FileManager {
 
 
     static {
-        final Set<MessageFormat> messageFormats = Sets.newHashSet(
-                new MessageFormat("&6You received following nickname: %nickname%", MessageId.GET_NICK),
-                new MessageFormat("&cAn unknown error occured: %error%", MessageId.UNKNOWN_ERROR),
-                new MessageFormat("&cYou don't have permission to perform this command: %command%", MessageId.NO_PERMISSION)
-        );
+        final Map<MessageId, MessageFormat> messageFormats = Maps.newHashMap();
+        messageFormats.put(MessageId.NICK, new MessageFormat("&6You received following nickname: %nickname%", MessageId.NICK, true));
+        messageFormats.put(MessageId.UNKNOWN_ERROR, new MessageFormat("&cAn unknown error occured: %error%", MessageId.UNKNOWN_ERROR, true));
+        messageFormats.put(MessageId.NO_PERMISSION, new MessageFormat("&cYou don't have permission to perform this command: %command%", MessageId.NO_PERMISSION, true));
+
 
         DEFAULT_MESSAGE_ENTITY = new MessageEntity(messageFormats);
 
@@ -52,6 +55,7 @@ public final class FileManager {
     private static final Gson GSON = new GsonBuilder()
             .registerTypeAdapter(TeamViewLayout.class, new TeamViewLayoutSerializer())
             .registerTypeAdapter(TeamViewPreset.class, new TeamViewPresetSerializer())
+            .registerTypeAdapter(MessageEntity.class, new MessageEntitySerializer())
             .setPrettyPrinting()
             .create();
 

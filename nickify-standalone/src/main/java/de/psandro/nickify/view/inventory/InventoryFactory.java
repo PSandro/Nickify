@@ -1,11 +1,14 @@
 package de.psandro.nickify.view.inventory;
 
 import com.google.common.collect.*;
-import de.psandro.nickify.view.inventory.inv.HomeInventory;
-import de.psandro.nickify.view.inventory.inv.PresetsInventory;
+import de.psandro.nickify.controller.message.MessageId;
+import de.psandro.nickify.controller.message.UnsafeMessage;
+import de.psandro.nickify.model.ConfigManager;
+import de.psandro.nickify.view.inventory.inv.*;
 import de.psandro.nickify.view.inventory.item.ClickableItem;
 import de.psandro.nickify.view.inventory.item.DumpItem;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -13,24 +16,37 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public final class InventoryFactory implements Listener {
 
     private final Map<Class<? extends AbstractStaticInventory>, AbstractStaticInventory> staticInventories = new HashMap<>();
     private final Table<UUID, String, AbstractDynamicInventory> inventoryBindings = HashBasedTable.create();
+    @Getter
     private final ActionListener actionListener;
+    @Getter
+    private final ConfigManager configManager;
 
 
-    public InventoryFactory() {
+    public InventoryFactory(ConfigManager configManager) {
+        this.configManager = configManager;
         this.actionListener = new ActionListener(this.inventoryBindings);
 
-        this.staticInventories.put(HomeInventory.class, new HomeInventory(this.actionListener));
-        this.staticInventories.put(PresetsInventory.class, new PresetsInventory(this.actionListener));
+        final AbstractStaticInventory homeInventory = new HomeInventory(this.actionListener);
+        this.staticInventories.put(HomeInventory.class, homeInventory);
+        this.staticInventories.put(MessagesHomeInventory.class, new MessagesHomeInventory(homeInventory, this.actionListener));
+        this.staticInventories.put(PresetsInventory.class, new PresetsInventory(homeInventory, this.actionListener));
 
     }
 
-    public AbstractDynamicInventory createInventory(Player player, Class<? extends AbstractDynamicInventory> inventory) {
-        //add to bindings
+    public AbstractDynamicInventory createInventory(Player player, Class<? extends AbstractDynamicInventory> inventory, AbstractDynamicInventory parent) {
+        if (inventory.equals(MessagesViewInventory.class)) {
+
+
+            return new MessagesViewInventory(parent, player, this.actionListener, this.configManager);
+        } else if (inventory.equals(TeamViewPresetsInventory.class)) {
+            return new TeamViewPresetsInventory(parent, player, this.actionListener, this.configManager.getSettingsEntity().getTeamViewPresets());
+        }
         return null; //TODO
     }
 
@@ -56,7 +72,7 @@ public final class InventoryFactory implements Listener {
         final DumpItem dumpItem = inventory.getContents()[event.getSlot()];
         if (dumpItem == null) return;
         if (dumpItem instanceof ClickableItem) {
-            ((ClickableItem) dumpItem).getClickCallback().click(player, event.getClick(), this);
+            ((ClickableItem) dumpItem).getClickCallback().click(player, event.getClick(), this, inventory);
         }
     }
 

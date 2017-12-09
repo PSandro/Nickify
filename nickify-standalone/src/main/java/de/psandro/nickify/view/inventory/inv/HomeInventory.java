@@ -17,21 +17,23 @@ public final class HomeInventory extends AbstractStaticInventory {
                 .withName("§3Messages")
                 .withLore("§7Edit the", "§7Messages here")
                 .build();
-        MESSAGES_ITEM = new ClickableItem(messagesStack, (player, clickType, context) -> {
-            //TODO open inventory
+        MESSAGES_ITEM = new ClickableItem(messagesStack, (player, clickType, context, inventory) -> {
+            inventory.closeSilent(player);
+            context.getStaticInventory(MessagesHomeInventory.class).open(player);
         });
 
         final ItemStack settingsStack = new ItemBuilder(Material.WORKBENCH)
                 .withName("§3Settings")
                 .withLore("§7Edit the", "§7Settings here")
                 .build();
-        SETTINGS_ITEM = new ClickableItem(settingsStack, (player, clickType, context) -> {
+        SETTINGS_ITEM = new ClickableItem(settingsStack, (player, clickType, context, inventory) -> {
+            inventory.closeSilent(player);
             context.getStaticInventory(PresetsInventory.class).open(player);
         });
     }
 
     public HomeInventory(InventoryActionCallback inventoryActionCallback) {
-        super("§6Nickify Home", 45, inventoryActionCallback);
+        super(null,"§6Nickify Home", 45, inventoryActionCallback);
     }
 
     @Override

@@ -9,14 +9,19 @@ import org.bukkit.entity.Player;
 import java.util.Map;
 import java.util.Set;
 
-@AllArgsConstructor
 public final class MessageManager implements IMessageManager {
 
-    private final Set<MessageFormat> messageFormats;
+
+    private final MessageEntity messageEntity;
+
+    public MessageManager(MessageEntity messageEntity) {
+        this.messageEntity = messageEntity;
+    }
 
     @Override
     public MessageFormat getMessageFormat(MessageId id) {
-        return this.messageFormats.stream().filter(messageFormat -> messageFormat.getMessageId().equals(id)).findFirst().orElse(null);
+        final MessageFormat messageFormat = this.messageEntity.getMessages().get(id);
+        return messageFormat.isActive() ? messageFormat : null;
     }
 
     @Override

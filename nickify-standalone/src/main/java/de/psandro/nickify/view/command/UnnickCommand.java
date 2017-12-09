@@ -27,7 +27,7 @@ public final class UnnickCommand implements CommandExecutor {
 
         try {
             this.nameTagManager.getNickManager().unnick(player);
-            this.messageManager.sendIfPresent(player, MessageId.GET_NICK, ImmutableMap.of());
+            this.messageManager.sendIfPresent(player, MessageId.NICK, ImmutableMap.of());
         } catch (Exception e) {
             e.printStackTrace();
             this.messageManager.sendIfPresent(player, MessageId.UNKNOWN_ERROR, ImmutableMap.of(MessageId.MessageSpacer.ERROR, e.getMessage()));

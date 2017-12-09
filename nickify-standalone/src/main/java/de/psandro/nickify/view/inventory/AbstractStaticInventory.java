@@ -6,8 +6,8 @@ import org.bukkit.entity.Player;
 @Getter
 public abstract class AbstractStaticInventory extends AbstractDynamicInventory {
 
-    protected AbstractStaticInventory(String title, int size, InventoryActionCallback inventoryActionCallback) {
-        super(null, title, size, inventoryActionCallback);
+    protected AbstractStaticInventory(AbstractDynamicInventory parent, String title, int size, InventoryActionCallback inventoryActionCallback) {
+        super(parent, null, title, size, inventoryActionCallback);
         this.init();
     }
 

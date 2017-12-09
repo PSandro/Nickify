@@ -8,8 +8,9 @@ import java.util.Set;
 public enum MessageId {
 
     NO_PERMISSION(Sets.newHashSet(MessageSpacer.COMMAND_SPACER)),
-    GET_NICK(Sets.newHashSet(MessageSpacer.NICKNAME_SPACER)),
+    NICK(Sets.newHashSet(MessageSpacer.NICKNAME_SPACER)),
     UNNICK(Sets.newHashSet()),
+    ALREADY_NICKED(Sets.newHashSet()),
     UNKNOWN_ERROR(Sets.newHashSet());
 
 

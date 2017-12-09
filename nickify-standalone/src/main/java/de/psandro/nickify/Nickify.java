@@ -3,7 +3,6 @@ package de.psandro.nickify;
 import de.psandro.nickify.controller.DefaultNameTagManager;
 import de.psandro.nickify.controller.NameTagManager;
 import de.psandro.nickify.controller.listener.RegisterListener;
-import de.psandro.nickify.controller.message.IMessageManager;
 import de.psandro.nickify.controller.nick.DefaultNickManager;
 import de.psandro.nickify.controller.nick.INickEntityFactory;
 import de.psandro.nickify.controller.nick.NickManager;

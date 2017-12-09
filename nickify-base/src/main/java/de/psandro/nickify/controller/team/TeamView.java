@@ -10,25 +10,25 @@ import java.util.Collections;
 @Getter
 @Setter
 @ToString
-public final class TeamView extends TeamViewLayout{
+public final class TeamView extends TeamViewLayout {
 
     private @NonNull
     String owner;
     private @NonNull
     String teamName;
 
-    TeamView(String prefix, String suffix, String owner, String teamName) {
-        super(prefix, suffix);
+    TeamView(String prefix, String suffix, int priority, String owner, String teamName) {
+        super(prefix, suffix, priority);
         this.owner = owner;
         this.teamName = teamName;
     }
 
     TeamView(TeamView teamView) {
-        this(teamView.getPrefix(), teamView.getSuffix(), teamView.getOwner(), teamView.getTeamName());
+        this(teamView.getPrefix(), teamView.getSuffix(), teamView.getPriority(), teamView.getOwner(), teamView.getTeamName());
     }
 
     TeamView(TeamViewLayout teamViewLayout, String owner, String teamName) {
-        this(teamViewLayout.getPrefix(), teamViewLayout.getSuffix(), owner, teamName);
+        this(teamViewLayout.getPrefix(), teamViewLayout.getSuffix(), teamViewLayout.getPriority(), owner, teamName);
     }
 
     public CreateTeamPacket buildCreationPacket() {
@@ -55,6 +55,7 @@ public final class TeamView extends TeamViewLayout{
         team.setPlayers(Collections.singletonList(this.owner));
         return team;
     }
+
     public UpdateTeamPacket buildUpdatePacket() {
         final UpdateTeamPacket team = new UpdateTeamPacket(this.teamName);
         team.setDisplayName(this.teamName);

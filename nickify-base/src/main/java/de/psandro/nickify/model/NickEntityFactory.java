@@ -8,6 +8,8 @@ import de.psandro.nickify.controller.nick.NickEntity;
 
 import java.util.*;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 public final class NickEntityFactory implements INickEntityFactory {
 
@@ -43,7 +45,7 @@ public final class NickEntityFactory implements INickEntityFactory {
 
     @Deprecated
     //Do not run in main Thread
-    public NickEntity getByName(String name) throws ExecutionException, InterruptedException {
+    public NickEntity getByName(String name) throws ExecutionException, InterruptedException, TimeoutException {
         Preconditions.checkNotNull(name, "The name cannot be null!");
         Preconditions.checkArgument(name.length() <= 16 && name.length() >= 3, "The name has a invalid length!");
 
@@ -53,7 +55,7 @@ public final class NickEntityFactory implements INickEntityFactory {
             return cached.get();
         }
 
-        final WrappedGameProfile profile = ProfileFetcher.fetchProfile(name).get();
+        final WrappedGameProfile profile = ProfileFetcher.fetchProfile(name).get(5, TimeUnit.SECONDS);
         final NickEntity nickEntity = this.buildNickEntity(profile);
 
         return nickEntity;

@@ -11,7 +11,7 @@ import java.util.UUID;
 public final class ObserverEntity {
     private final @NonNull
     UUID uuid;
-    private final @NonNull
+    private @NonNull
     TeamView teamView;
     @Setter
     private boolean ignoreNameChange;
@@ -22,17 +22,17 @@ public final class ObserverEntity {
         this.ignoreNameChange = ignoreNameChange;
     }
 
-    public void changeName(String name) {
-        this.changeName(name, false);
+    public void changeName(TeamView teamView) {
+        this.changeName(teamView, false);
     }
 
-    public void changeName(String name, boolean force) {
+    public void changeName(final @NonNull TeamView teamView, boolean force) {
         if (this.ignoreNameChange && !force) return;
         final Player player = Bukkit.getPlayer(this.uuid);
         if (player == null) return;
-        this.teamView.buildMemberRemovePacket().sendPacket(player);
-        this.teamView.setOwner(name);
-        this.teamView.buildMemberAddPacket().sendPacket(player);
+        this.despawnView();
+        this.teamView = teamView;
+        this.spawnView();
     }
 
     public void updateView() {

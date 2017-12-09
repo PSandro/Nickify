@@ -58,19 +58,15 @@ public final class ProfileFetcher {
         });
     }
 
-    public static final Future<WrappedGameProfile> fetchProfile(final String name) {
-        //TODO improfe
-        return executorService.submit(() -> {
+    public static final Future<WrappedGameProfile> fetchProfile(final String name) throws InterruptedException, ExecutionException, TimeoutException {
+        UUID uuid = null;
+        try {
+            uuid = fetchUUID(name).get(5, TimeUnit.SECONDS);
 
-            UUID uuid = null;
-            try {
-                uuid = fetchUUID(name).get(5, TimeUnit.SECONDS);
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return fetchProfile(uuid).get(5, TimeUnit.SECONDS);
-        });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return fetchProfile(uuid);
 
     }
 

@@ -34,11 +34,10 @@ public final class TeamInfo {
 
     public void nick(final @NonNull Nickable nick, @NonNull Set<UUID> exceptions) {
         this.nickable = Optional.of(nick);
+        final TeamView nickTeamView = TeamViewFactory.createTeamView(nick.getNickEntity().getName(), nick.getTeamViewLayout());
         this.observers.stream().filter(observerEntity -> !exceptions.contains(observerEntity)).forEach(observerEntity -> {
             if (!observerEntity.getUuid().equals(this.owner.getUniqueId())) {
-                observerEntity.updateTeamView(nick.getTeamViewLayout());
-                observerEntity.updateView();
-                observerEntity.changeName(nick.getNickEntity().getName());
+                observerEntity.changeName(nickTeamView);
             }
 
         });
@@ -56,9 +55,7 @@ public final class TeamInfo {
         this.nickable = Optional.empty();
         this.observers.stream().filter(observerEntity -> !exceptions.contains(observerEntity)).forEach(observerEntity -> {
             //TODO maybe store previous teamview in observer entity and recall it
-            observerEntity.changeName(this.owner.getName());
-            observerEntity.updateTeamView(this.defaultTeamView);
-            observerEntity.updateView();
+            observerEntity.changeName(this.getDefaultTeamView());
         });
     }
 

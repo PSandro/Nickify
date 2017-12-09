@@ -53,14 +53,14 @@ public final class TeamViewFactory {
     }
 
 
-    public static TeamView createTeamView(String owner, TeamViewLayout teamViewLayout, int priorityIndex) {
+    public static TeamView createTeamView(String owner, TeamViewLayout teamViewLayout) {
         Preconditions.checkArgument(owner.length() <= 16);
         Preconditions.checkArgument(teamViewLayout.getPrefix().length() <= 16);
         Preconditions.checkArgument(teamViewLayout.getSuffix().length() <= 16);
-        Preconditions.checkArgument(priorityIndex >= 0);
-        Preconditions.checkArgument(priorityIndex < (PRIORITYS.length - 1));
+        Preconditions.checkArgument(teamViewLayout.getPriority() >= 0);
+        Preconditions.checkArgument(teamViewLayout.getPriority() < (PRIORITYS.length - 1));
 
-        final String teamName = buildTeamName(owner, priorityIndex);
+        final String teamName = buildTeamName(owner, teamViewLayout.getPriority());
 
         return new TeamView(teamViewLayout, owner, teamName);
     }

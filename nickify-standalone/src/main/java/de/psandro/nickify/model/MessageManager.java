@@ -23,7 +23,7 @@ public final class MessageManager implements IMessageManager {
     public void sendIfPresent(Player player, MessageId id, Map<String, String> replaces) {
         final MessageFormat format = this.getMessageFormat(id);
         if (format == null) return;
-        replaces.forEach((key, value) -> format.replace(key, value));
+        replaces.forEach((key, value) -> format.edit().replace(key, value));
         player.sendMessage(format.buildMessage());
     }
 

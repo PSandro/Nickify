@@ -12,7 +12,9 @@ import de.psandro.nickify.controller.team.TeamManager;
 import de.psandro.nickify.misc.TeamViewFetcher;
 import de.psandro.nickify.model.*;
 import de.psandro.nickify.view.command.NickCommand;
+import de.psandro.nickify.view.command.NickifyCommand;
 import de.psandro.nickify.view.command.UnnickCommand;
+import de.psandro.nickify.view.inventory.InventoryFactory;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -70,10 +72,13 @@ public final class Nickify extends JavaPlugin {
         nameTagManager = new DefaultNameTagManager(teamManager, nickManager);
         final PacketHandler packetHandler = new PacketHandler(nameTagManager.getNickManager(), this);
         packetHandler.registerListener();
+        final InventoryFactory inventoryFactory = new InventoryFactory();
 
+        this.getServer().getPluginManager().registerEvents(inventoryFactory, this);
         this.getServer().getPluginManager().registerEvents(new RegisterListener(nameTagManager, teamViewFetcher), this);
         this.getCommand("nick").setExecutor(new NickCommand(nameTagManager, messageManager, teamViewFetcher));
         this.getCommand("unnick").setExecutor(new UnnickCommand(nameTagManager, messageManager));
+        this.getCommand("nickify").setExecutor(new NickifyCommand(messageManager, inventoryFactory));
     }
 
     @Override

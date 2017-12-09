@@ -15,11 +15,8 @@ public final class MessageFormat {
     private final MessageId messageId;
 
 
-    public MessageFormat replace(String spacer, String value) {
-        if (this.messageId.getSpacers().contains(spacer) && this.rawMessage.contains(spacer)) {
-            this.rawMessage = this.rawMessage.replaceAll(spacer, value);
-        }
-        return this;
+    public MessageEditor edit(){
+        return new MessageEditor(this.rawMessage, this.messageId.spacers);
     }
 
 

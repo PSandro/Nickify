@@ -7,3 +7,4 @@ depend: [ProtocolLib]
 commands:
   nick:
   unnick:
+  nickify:

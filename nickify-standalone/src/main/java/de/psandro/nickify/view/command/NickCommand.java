@@ -3,10 +3,10 @@ package de.psandro.nickify.view.command;
 import com.google.common.collect.ImmutableMap;
 import de.psandro.nickify.controller.NameTagManager;
 import de.psandro.nickify.controller.Permissions;
-import de.psandro.nickify.controller.exception.PlayerAlreadyNickedException;
+import de.psandro.nickify.api.exception.PlayerAlreadyNickedException;
 import de.psandro.nickify.controller.message.IMessageManager;
 import de.psandro.nickify.controller.message.MessageId;
-import de.psandro.nickify.controller.nick.Nickable;
+import de.psandro.nickify.controller.team.Nickable;
 import de.psandro.nickify.misc.TeamViewFetcher;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
@@ -44,7 +44,7 @@ public final class NickCommand implements CommandExecutor {
         if (args.length <= 0) {
             try {
                 final Nickable nickable = this.nameTagManager.getNickManager().nick(player, UUID.fromString("1588abbb-e45b-49e6-9e43-8b83c5d5f812"), teamViewFetcher.getRandomNickLayout());
-                this.messageManager.sendIfPresent(player, MessageId.NICK, ImmutableMap.of(MessageId.MessageSpacer.NICKNAME_SPACER, nickable.getNickEntity().getName()));
+                this.messageManager.sendIfPresent(player, MessageId.NICK, ImmutableMap.of(MessageId.MessageSpacer.NICKNAME_SPACER, nickable.getName()));
             } catch (PlayerAlreadyNickedException e) {
                 this.messageManager.sendIfPresent(player, MessageId.ALREADY_NICKED, ImmutableMap.of());
 
@@ -55,7 +55,7 @@ public final class NickCommand implements CommandExecutor {
         } else if (args.length == 1) {
             try {
                 Nickable nickable = this.nameTagManager.getNickManager().nick(player, UUID.fromString(args[0]), teamViewFetcher.getRandomNickLayout());
-                this.messageManager.sendIfPresent(player, MessageId.NICK, ImmutableMap.of(MessageId.MessageSpacer.NICKNAME_SPACER, nickable.getNickEntity().getName()));
+                this.messageManager.sendIfPresent(player, MessageId.NICK, ImmutableMap.of(MessageId.MessageSpacer.NICKNAME_SPACER, nickable.getName()));
             } catch (Exception e) {
                 e.printStackTrace();
                 this.messageManager.sendIfPresent(player, MessageId.UNKNOWN_ERROR, ImmutableMap.of(MessageId.MessageSpacer.ERROR, e.getMessage()));

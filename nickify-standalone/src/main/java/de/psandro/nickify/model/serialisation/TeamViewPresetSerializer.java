@@ -1,7 +1,7 @@
 package de.psandro.nickify.model.serialisation;
 
 import com.google.gson.*;
-import de.psandro.nickify.controller.team.TeamViewLayout;
+import de.psandro.nickify.api.team.TeamViewLayout;
 import de.psandro.nickify.model.TeamViewPreset;
 
 import java.lang.reflect.Type;

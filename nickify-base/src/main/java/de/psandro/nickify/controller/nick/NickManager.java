@@ -1,6 +1,8 @@
 package de.psandro.nickify.controller.nick;
 
-import de.psandro.nickify.controller.team.TeamViewLayout;
+import de.psandro.nickify.api.nick.NickEntity;
+import de.psandro.nickify.api.team.TeamViewLayout;
+import de.psandro.nickify.controller.team.Nickable;
 import org.bukkit.entity.Player;
 
 import java.util.Collection;

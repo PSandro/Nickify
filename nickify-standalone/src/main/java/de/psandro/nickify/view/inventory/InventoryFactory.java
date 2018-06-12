@@ -1,8 +1,6 @@
 package de.psandro.nickify.view.inventory;
 
 import com.google.common.collect.*;
-import de.psandro.nickify.controller.message.MessageId;
-import de.psandro.nickify.controller.message.UnsafeMessage;
 import de.psandro.nickify.model.ConfigManager;
 import de.psandro.nickify.view.inventory.inv.*;
 import de.psandro.nickify.view.inventory.item.ClickableItem;
@@ -16,7 +14,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public final class InventoryFactory implements Listener {
 
@@ -75,6 +72,7 @@ public final class InventoryFactory implements Listener {
             ((ClickableItem) dumpItem).getClickCallback().click(player, event.getClick(), this, inventory);
         }
     }
+
 
     @AllArgsConstructor
     private class ActionListener implements InventoryActionCallback {

@@ -1,4 +1,4 @@
-package de.psandro.nickify.controller.team;
+package de.psandro.nickify.api.team;
 
 import lombok.*;
 

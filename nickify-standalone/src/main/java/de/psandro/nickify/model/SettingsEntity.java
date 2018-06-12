@@ -1,7 +1,7 @@
 package de.psandro.nickify.model;
 
-import de.psandro.nickify.controller.exception.ConfigurationException;
-import de.psandro.nickify.controller.team.TeamViewLayout;
+import de.psandro.nickify.api.team.TeamViewLayout;
+import de.psandro.nickify.exception.ConfigurationException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

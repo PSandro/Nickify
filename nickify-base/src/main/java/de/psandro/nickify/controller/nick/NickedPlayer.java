@@ -2,12 +2,13 @@ package de.psandro.nickify.controller.nick;
 
 import com.comphenix.protocol.wrappers.WrappedGameProfile;
 import com.google.common.base.Preconditions;
-import de.psandro.nickify.controller.team.TeamViewLayout;
+import de.psandro.nickify.api.nick.NickifyPlayerData;
+import de.psandro.nickify.api.team.TeamViewLayout;
+import de.psandro.nickify.controller.team.Nickable;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NonNull;
-import org.bukkit.entity.Player;
 
 import java.util.Set;
 import java.util.UUID;
@@ -16,29 +17,31 @@ import java.util.UUID;
 @Getter
 public final class NickedPlayer implements Nickable {
 
-    private final String realName;
-    private final NickEntity nickEntity;
-    private final UUID uniqueId;
-    private final WrappedGameProfile fakeGameProfile;
+    private final NickifyPlayerData playerData;
     private final Set<UUID> exceptions;
-    private final TeamViewLayout teamViewLayout;
+    private WrappedGameProfile fakeGameProfile;
+    private TeamViewLayout teamViewLayout;
+    private String name;
 
-    NickedPlayer(final Player player, final NickEntity nickEntity, @NonNull Set<UUID> exceptions, @NonNull TeamViewLayout teamViewLayout) {
-        Preconditions.checkNotNull(player, "The player cannot be null!");
-        Preconditions.checkNotNull(nickEntity, "The Nick Entity cannot be null!");
-        this.realName = player.getName();
-        this.nickEntity = nickEntity;
-        this.uniqueId = player.getUniqueId();
-        this.fakeGameProfile = NickedPlayer.buildCustomProfile(player.getUniqueId(), nickEntity);
+    NickedPlayer(final NickifyPlayerData nickifyPlayer, String nickname, TeamViewLayout layout, WrappedGameProfile gameProfile, @NonNull Set<UUID> exceptions) {
+        Preconditions.checkNotNull(nickifyPlayer, "The player cannot be null!");
+        this.playerData = nickifyPlayer;
+        this.name = nickname;
+        this.teamViewLayout = layout;
+        this.fakeGameProfile = gameProfile;
         this.exceptions = exceptions;
-        this.teamViewLayout = teamViewLayout;
     }
 
 
-    private static final WrappedGameProfile buildCustomProfile(final UUID uniqueId, final NickEntity nickEntity) {
+    private static final WrappedGameProfile buildCustomProfile(final UUID uniqueId, final Nickable nickEntity) {
         final WrappedGameProfile fakeGameProfile = new WrappedGameProfile(uniqueId, nickEntity.getName());
-        fakeGameProfile.getProperties().putAll(nickEntity.getProfileProperties());
+        fakeGameProfile.getProperties().putAll(nickEntity.getFakeGameProfile().getProperties());
         return fakeGameProfile;
     }
 
+
+    @Override
+    public UUID getUniqueId() {
+        return this.fakeGameProfile.getUUID();
+    }
 }

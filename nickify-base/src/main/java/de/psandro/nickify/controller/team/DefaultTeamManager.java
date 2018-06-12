@@ -1,66 +1,78 @@
 package de.psandro.nickify.controller.team;
 
-import de.psandro.nickify.controller.nick.Nickable;
+import de.psandro.nickify.api.team.AbstractObserver;
+import de.psandro.nickify.api.team.TeamInfo;
+import de.psandro.nickify.controller.NickifyPlayer;
 import org.bukkit.entity.Player;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public final class DefaultTeamManager implements TeamManager {
 
-    private final Map<UUID, TeamInfo> teamBindings = new HashMap<>();
+    private final Map<UUID, TeamController> teamBindings = new HashMap<>();
 
     public DefaultTeamManager() {
     }
 
     @Override
-    public TeamInfo createTeamInfo(Player player, TeamView defaultTeamView, LinkedHashSet<ObserverEntity> observers, Nickable nickable) {
-        return new TeamInfo(player, observers, defaultTeamView, nickable);
+    public TeamController createTeamController(Player player, TeamView defaultTeamView, LinkedHashSet<AbstractObserver> observers, Nickable nickable) {
+        return new TeamController(new TeamInfo(
+                new NickifyPlayer(player),
+                observers,
+                defaultTeamView,
+                nickable
+        ));
     }
 
     @Override
-    public TeamInfo createTeamInfo(Player player, TeamView defaultTeamView, LinkedHashSet<ObserverEntity> observers) {
-        return this.createTeamInfo(player, defaultTeamView, observers, null);
+    public TeamController createTeamController(Player player, TeamView defaultTeamView, LinkedHashSet<AbstractObserver> observers) {
+        return this.createTeamController(player, defaultTeamView, observers, null);
     }
 
     @Override
-    public void spawnTeam(TeamInfo teamInfo) {
-        if (this.teamBindings.containsKey(teamInfo.getOwner().getUniqueId())) return; //TODO throw exception
+    public void spawnTeam(TeamController teamInfo) {
+        if (this.teamBindings.containsKey(teamInfo.getTeamInfo().getOwner().getUniqueId()))
+            return; //TODO throw exception
         teamInfo.spawn();
-        this.teamBindings.put(teamInfo.getOwner().getUniqueId(), teamInfo);
+        this.teamBindings.put(teamInfo.getTeamInfo().getOwner().getUniqueId(), teamInfo);
     }
 
     @Override
     public void deleteTeam(TeamInfo teamInfo) {
-        if (!this.teamBindings.containsKey(teamInfo.getOwner().getUniqueId())) return; //TODO throw exception
-        teamInfo.destroy();
+        TeamController controller = this.teamBindings.get(teamInfo.getOwner().getUniqueId());
+        if (controller == null) return; //TODO throw exception
+        controller.destroy();
         this.teamBindings.remove(teamInfo.getOwner().getUniqueId());
     }
 
     @Override
     public Collection<TeamInfo> getTeamInfos() {
-        return this.teamBindings.values();
+        return this.teamBindings.values().stream().map(TeamController::getTeamInfo).collect(Collectors.toSet());
     }
 
     @Override
     public void updateTeam(TeamInfo teamInfo) {
-        if (!this.teamBindings.containsKey(teamInfo.getOwner().getUniqueId())) return; //TODO throw exception
-        teamInfo.update();
+        TeamController controller = this.teamBindings.get(teamInfo.getOwner().getUniqueId());
+        if (controller == null) return; //TODO throw exception
+        controller.update();
     }
 
     @Override
-    public TeamInfo getTeamInfo(UUID uuid) {
+    public TeamController getTeamController(UUID uuid) {
         return this.teamBindings.get(uuid);
     }
+
 
     @Override
     public TeamNickUpdateConsumer getUpdateConsumer() {
         return (player, nickable, exceptions) -> {
-            final TeamInfo teamInfo = this.getTeamInfo(player.getUniqueId());
-            if (teamInfo == null) return;
+            final TeamController teamController = this.getTeamController(player.getUniqueId());
+            if (teamController == null) return;
             if (nickable == null) {
-                teamInfo.unnick();
+                teamController.unnick();
             } else {
-                teamInfo.nick(nickable, exceptions);
+                teamController.nick(nickable, exceptions);
             }
 
         };

@@ -6,8 +6,9 @@ import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
+import de.psandro.nickify.api.nick.NickEntity;
 import de.psandro.nickify.controller.nick.NickManager;
-import de.psandro.nickify.controller.nick.Nickable;
+import de.psandro.nickify.controller.team.Nickable;
 import org.apache.commons.lang.ArrayUtils;
 import org.bukkit.plugin.Plugin;
 
@@ -31,7 +32,7 @@ public final class TabCompleteAdapter extends PacketAdapter {
 
     private Optional<Nickable> checkNickName(String option) {
         return this.nickManager.getNickables().stream().filter(nickable ->
-                nickable.getNickEntity().getName().equalsIgnoreCase(option)
+                nickable.getName().equalsIgnoreCase(option)
         ).findFirst();
     }
 
@@ -52,8 +53,8 @@ public final class TabCompleteAdapter extends PacketAdapter {
         if (text == null || text.length <= 0) return;
         final String current = text[text.length-1].toLowerCase();
         final String[] options = this.nickManager.getNickables().stream()
-                .filter(nickable -> nickable.getNickEntity().getName().toLowerCase().startsWith(current))
-                .map(nickable -> nickable.getNickEntity().getName())
+                .filter(nickable -> nickable.getName().toLowerCase().startsWith(current))
+                .map(NickEntity::getName)
                 .toArray(String[]::new);
         this.optionCache.put(event.getPlayer().getUniqueId(), options);
     }

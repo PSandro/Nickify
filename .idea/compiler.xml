@@ -7,6 +7,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="nickify-api" />
         <module name="nickify-base" />
         <module name="nickify-standalone" />
         <module name="nickifybase" />
@@ -14,6 +15,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="Nickify" target="1.5" />
+      <module name="nickify-api" target="1.8" />
       <module name="nickify-base" target="1.8" />
       <module name="nickify-standalone" target="1.8" />
       <module name="nickifybase" target="1.8" />

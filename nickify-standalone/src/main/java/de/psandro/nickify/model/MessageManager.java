@@ -1,13 +1,12 @@
 package de.psandro.nickify.model;
 
 import de.psandro.nickify.controller.message.IMessageManager;
+import de.psandro.nickify.controller.message.MessageEditor;
 import de.psandro.nickify.controller.message.MessageFormat;
 import de.psandro.nickify.controller.message.MessageId;
-import lombok.AllArgsConstructor;
 import org.bukkit.entity.Player;
 
 import java.util.Map;
-import java.util.Set;
 
 public final class MessageManager implements IMessageManager {
 
@@ -28,8 +27,9 @@ public final class MessageManager implements IMessageManager {
     public void sendIfPresent(Player player, MessageId id, Map<String, String> replaces) {
         final MessageFormat format = this.getMessageFormat(id);
         if (format == null) return;
-        replaces.forEach((key, value) -> format.edit().replace(key, value));
-        player.sendMessage(format.buildMessage());
+        final MessageEditor editor = format.edit();
+        replaces.forEach(editor::replace);
+        player.sendMessage(editor.buildMessage());
     }
 
     @Override

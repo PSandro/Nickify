@@ -8,7 +8,6 @@ import de.psandro.nickify.model.MessageEntity;
 
 import java.lang.reflect.Type;
 import java.util.Map;
-import java.util.Set;
 
 public final class MessageEntitySerializer implements JsonSerializer<MessageEntity>, JsonDeserializer<MessageEntity> {
 

@@ -9,11 +9,11 @@ import java.util.concurrent.TimeoutException;
 
 public interface INickEntityFactory {
 
-    NickEntity getByUUID(UUID uuid) throws ExecutionException, InterruptedException;
+    CachedNickEntity getByUUID(UUID uuid) throws ExecutionException, InterruptedException;
 
-    NickEntity getByName(String uuid) throws ExecutionException, InterruptedException, TimeoutException;
+    CachedNickEntity getByName(String uuid) throws ExecutionException, InterruptedException, TimeoutException;
 
     void returnNickEntity(CachedNickEntity nickEntity);
 
-    Optional<NickEntity> pickAny();
+    Optional<CachedNickEntity> pickAny();
 }

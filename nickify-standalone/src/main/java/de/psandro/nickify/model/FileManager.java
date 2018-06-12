@@ -6,9 +6,9 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import de.psandro.nickify.api.team.TeamViewLayout;
 import de.psandro.nickify.controller.message.MessageFormat;
 import de.psandro.nickify.controller.message.MessageId;
-import de.psandro.nickify.controller.team.TeamViewLayout;
 import de.psandro.nickify.model.serialisation.MessageEntitySerializer;
 import de.psandro.nickify.model.serialisation.TeamViewPresetSerializer;
 

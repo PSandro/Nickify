@@ -1,39 +1,42 @@
 package de.psandro.nickify.model;
 
-import com.comphenix.protocol.wrappers.WrappedSignedProperty;
-import com.google.common.collect.Multimap;
-import de.psandro.nickify.controller.nick.NickEntity;
+import com.comphenix.protocol.wrappers.WrappedGameProfile;
+import de.psandro.nickify.controller.team.AdvancedNickEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NonNull;
-import lombok.Setter;
 
 import java.util.UUID;
 
 
 @AllArgsConstructor
-public final class CachedNickEntity implements NickEntity {
+public final class CachedNickEntity implements AdvancedNickEntity {
 
-    private final String name;
-    private final Multimap<String, WrappedSignedProperty> profileProperties;
-    @Setter
+    private final WrappedGameProfile fakeProfile;
     @NonNull
     @Getter
     private long latestUse = 0;
-    private final UUID uniqueId;
 
     @Override
     public String getName() {
-        return this.name;
+        return this.fakeProfile.getName();
     }
 
     @Override
     public UUID getUniqueId() {
-        return this.uniqueId;
+        return this.fakeProfile.getUUID();
     }
 
+
     @Override
-    public Multimap<String, WrappedSignedProperty> getProfileProperties() {
-        return this.profileProperties;
+    public WrappedGameProfile getFakeGameProfile() {
+        return this.fakeProfile;
+    }
+
+
+
+
+    public static CachedNickEntity byAdvancedNickEntity(AdvancedNickEntity entity, long latestUse) {
+        return new CachedNickEntity(entity.getFakeGameProfile(), latestUse);
     }
 }

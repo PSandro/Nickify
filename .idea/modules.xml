@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Nickify.iml" filepath="$PROJECT_DIR$/Nickify.iml" />
+      <module fileurl="file://$PROJECT_DIR$/nickify-api/nickify-api.iml" filepath="$PROJECT_DIR$/nickify-api/nickify-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/nickify-base/nickify-base.iml" filepath="$PROJECT_DIR$/nickify-base/nickify-base.iml" />
       <module fileurl="file://$PROJECT_DIR$/nickify-standalone/nickify-standalone.iml" filepath="$PROJECT_DIR$/nickify-standalone/nickify-standalone.iml" />
     </modules>

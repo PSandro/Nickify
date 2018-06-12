@@ -1,5 +1,8 @@
 package de.psandro.nickify.controller.team;
 
+import de.psandro.nickify.api.team.AbstractObserver;
+import de.psandro.nickify.api.team.AssignedTeamViewLayout;
+import de.psandro.nickify.api.team.TeamViewLayout;
 import lombok.*;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -8,53 +11,47 @@ import java.util.UUID;
 
 @Getter
 @EqualsAndHashCode
-public final class ObserverEntity {
-    private final @NonNull
-    UUID uuid;
-    private @NonNull
-    TeamView teamView;
-    @Setter
-    private boolean ignoreNameChange;
+public final class ObserverEntity extends AbstractObserver {
 
-    public ObserverEntity(UUID uuid, TeamView teamView, boolean ignoreNameChange) {
-        this.uuid = uuid;
-        this.teamView = new TeamView(teamView);
-        this.ignoreNameChange = ignoreNameChange;
+    public ObserverEntity(UUID uuid, AssignedTeamViewLayout teamView, boolean ignoreNameChange) {
+        super(uuid, teamView, ignoreNameChange);
     }
 
-    public void changeName(TeamView teamView) {
-        this.changeName(teamView, false);
+    public ObserverEntity(UUID uuid, AssignedTeamViewLayout teamView) {
+        super(uuid, teamView, false);
     }
 
-    public void changeName(final @NonNull TeamView teamView, boolean force) {
-        if (this.ignoreNameChange && !force) return;
-        final Player player = Bukkit.getPlayer(this.uuid);
+    @Override
+    public void changeName(AssignedTeamViewLayout teamView, boolean force) {
+        if (super.isIgnoreNameChange() && !force) return;
+        final Player player = Bukkit.getPlayer(super.getUuid());
         if (player == null) return;
         this.despawnView();
-        this.teamView = teamView;
+        super.setTeamView(teamView);
         this.spawnView();
     }
 
     public void updateView() {
-        final Player player = Bukkit.getPlayer(this.uuid);
+        final Player player = Bukkit.getPlayer(this.getUuid());
         if (player == null) return;
-        this.teamView.buildUpdatePacket().sendPacket(player);
+        TeamViewPacketBuilder.buildUpdatePacket(super.getTeamView()).sendPacket(player);
     }
 
     public void spawnView() {
-        final Player player = Bukkit.getPlayer(this.uuid);
+        final Player player = Bukkit.getPlayer(this.getUuid());
         if (player == null) return;
-        this.teamView.buildCreationPacket().sendPacket(player);
+        TeamViewPacketBuilder.buildCreationPacket(super.getTeamView()).sendPacket(player);
     }
 
     public void despawnView() {
-        final Player player = Bukkit.getPlayer(this.uuid);
+        final Player player = Bukkit.getPlayer(this.getUuid());
         if (player == null) return;
-        this.teamView.buildRemovePacket().sendPacket(player);
+        TeamViewPacketBuilder.buildMemberRemovePacket(super.getTeamView()).sendPacket(player);
     }
 
     public void updateTeamView(TeamViewLayout layout) {
-        layout.executeOn(this.teamView);
+        layout.executeOn(this.getTeamView());
     }
 
 }
+

@@ -1,6 +1,6 @@
 package de.psandro.nickify.model;
 
-import de.psandro.nickify.controller.exception.ConfigurationException;
+import de.psandro.nickify.exception.ConfigurationException;
 import lombok.Getter;
 
 import java.io.Closeable;

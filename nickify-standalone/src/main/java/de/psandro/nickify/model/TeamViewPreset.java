@@ -1,6 +1,6 @@
 package de.psandro.nickify.model;
 
-import de.psandro.nickify.controller.team.TeamViewLayout;
+import de.psandro.nickify.api.team.TeamViewLayout;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NonNull;

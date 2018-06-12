@@ -28,11 +28,11 @@ public final class RegisterListener implements Listener {
         final Player player = event.getPlayer();
         final TeamView teamView = teamViewFetcher.getTeamView(player);
         final LinkedHashSet observerEntities = new LinkedHashSet(Bukkit.getOnlinePlayers().stream().map(all -> new ObserverEntity(all.getUniqueId(), teamView, false)).collect(Collectors.toSet()));
-        final TeamInfo teamInfo = this.nameTagManager.getTeamManager().createTeamInfo(player, teamView, observerEntities);
-        this.nameTagManager.getTeamManager().spawnTeam(teamInfo);
+        final TeamController controller = this.nameTagManager.getTeamManager().createTeamController(player, teamView, observerEntities);
+        this.nameTagManager.getTeamManager().spawnTeam(controller);
 
         this.nameTagManager.getTeamManager().getTeamInfos().forEach(info -> {
-            final ObserverEntity observerEntity = new ObserverEntity(player.getUniqueId(), info.getDefaultActiveTeamView(), false);
+            final ObserverEntity observerEntity = new ObserverEntity(player.getUniqueId(), info.getDefaultActiveTeamViewLayout(), false);
             info.getObservers().add(observerEntity);
             observerEntity.spawnView();
         });
@@ -42,9 +42,9 @@ public final class RegisterListener implements Listener {
     @EventHandler
     public void onPlayerQuit(final PlayerQuitEvent event) {
         final Player player = event.getPlayer();
-        final TeamInfo teamView = this.nameTagManager.getTeamManager().getTeamInfo(player.getUniqueId());
+        final TeamController teamView = this.nameTagManager.getTeamManager().getTeamController(player.getUniqueId());
         if (teamView == null) return;
-        this.nameTagManager.getTeamManager().deleteTeam(teamView);
+        this.nameTagManager.getTeamManager().deleteTeam(teamView.getTeamInfo());
         if (Bukkit.getOnlinePlayers().size() <= 1) {
             TeamViewFactory.resetCounter();
         }

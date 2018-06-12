@@ -5,10 +5,12 @@ import de.psandro.nickify.controller.message.UnsafeMessage;
 import de.psandro.nickify.model.ConfigManager;
 import de.psandro.nickify.view.inventory.AbstractDynamicInventory;
 import de.psandro.nickify.view.inventory.InventoryActionCallback;
+import de.psandro.nickify.view.inventory.input.InputInventory;
 import de.psandro.nickify.view.inventory.item.ClickableItem;
 import de.psandro.nickify.view.inventory.item.DumpItem;
 import de.psandro.nickify.view.inventory.item.ItemBuilder;
 import de.psandro.nickify.view.inventory.item.ItemClickCallback;
+import lombok.Getter;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -60,8 +62,14 @@ public class MessageInfoInventory extends AbstractDynamicInventory {
         ACTIVATE_ITEM = new ClickableItem<>(activateStack, clickCallback);
         DEACTIVATE_ITEM = new ClickableItem<>(deactivateStack, clickCallback);
         CHANGE_ITEM = new ClickableItem<>(changeStack, (player, clickType, context, inventory) -> {
-            //TODO open text insertion
-            inventory.addSaveButton();
+
+            if (inventory.isMessageFormat()) {
+                player.closeInventory();
+                new InputInventory(((MessageFormat) inventory.getMessage()).buildMessage(), null).open(player);
+                inventory.addSaveButton();
+            }
+
+
         });
         CREATE_ITEM = new ClickableItem<>(createStack, (player, clickType, context, inventory) -> {
             if (!inventory.isMessageFormat()) {
@@ -83,6 +91,7 @@ public class MessageInfoInventory extends AbstractDynamicInventory {
 
     }
 
+    @Getter
     private UnsafeMessage message;
     private final ConfigManager configManager;
 

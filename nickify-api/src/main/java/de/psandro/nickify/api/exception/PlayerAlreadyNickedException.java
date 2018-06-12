@@ -1,4 +1,4 @@
-package de.psandro.nickify.controller.exception;
+package de.psandro.nickify.api.exception;
 
 public class PlayerAlreadyNickedException extends NickifyException {
     public PlayerAlreadyNickedException(String name) {

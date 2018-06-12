@@ -1,7 +1,8 @@
 package de.psandro.nickify.controller.team;
 
 import com.google.common.base.Preconditions;
-import de.psandro.nickify.controller.exception.NoTeamNameAvailableException;
+import de.psandro.nickify.api.exception.NoTeamNameAvailableException;
+import de.psandro.nickify.api.team.TeamViewLayout;
 import org.apache.commons.lang.ArrayUtils;
 
 import java.util.ArrayList;

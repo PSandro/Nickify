@@ -1,6 +1,7 @@
 package de.psandro.nickify.controller.team;
 
-import de.psandro.nickify.controller.nick.Nickable;
+import de.psandro.nickify.api.team.AbstractObserver;
+import de.psandro.nickify.api.team.TeamInfo;
 import org.bukkit.entity.Player;
 
 import java.util.Collection;
@@ -9,11 +10,11 @@ import java.util.UUID;
 
 public interface TeamManager {
 
-    TeamInfo createTeamInfo(Player player, TeamView defaultTeamView, LinkedHashSet<ObserverEntity> observers, Nickable nickable);
+    TeamController createTeamController(Player player, TeamView defaultTeamView, LinkedHashSet<AbstractObserver> observers, Nickable nickable);
 
-    TeamInfo createTeamInfo(Player player, TeamView defaultTeamView, LinkedHashSet<ObserverEntity> observers);
+    TeamController createTeamController(Player player, TeamView defaultTeamView, LinkedHashSet<AbstractObserver> observers);
 
-    void spawnTeam(TeamInfo teamInfo);
+    void spawnTeam(TeamController teamInfo);
 
     void deleteTeam(TeamInfo teamInfo);
 
@@ -21,7 +22,7 @@ public interface TeamManager {
 
     void updateTeam(TeamInfo teamInfo);
 
-    TeamInfo getTeamInfo(UUID uuid);
+    TeamController getTeamController(UUID uuid);
 
     TeamNickUpdateConsumer getUpdateConsumer();
 

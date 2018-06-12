@@ -7,7 +7,7 @@ import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.wrappers.EnumWrappers;
 import com.comphenix.protocol.wrappers.PlayerInfoData;
 import de.psandro.nickify.controller.nick.NickManager;
-import de.psandro.nickify.controller.nick.Nickable;
+import de.psandro.nickify.controller.team.Nickable;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 

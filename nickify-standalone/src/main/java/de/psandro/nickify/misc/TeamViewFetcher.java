@@ -3,7 +3,7 @@ package de.psandro.nickify.misc;
 import de.psandro.nickify.api.team.TeamViewLayout;
 import de.psandro.nickify.controller.team.TeamView;
 import de.psandro.nickify.controller.team.TeamViewFactory;
-import de.psandro.nickify.model.TeamViewPreset;
+import de.psandro.nickify.api.model.TeamViewPreset;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import org.bukkit.entity.Player;

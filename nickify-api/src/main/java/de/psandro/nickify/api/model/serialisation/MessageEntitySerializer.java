@@ -1,10 +1,11 @@
-package de.psandro.nickify.model.serialisation;
+package de.psandro.nickify.api.model.serialisation;
 
+
+import com.google.common.reflect.TypeToken;
 import com.google.gson.*;
-import com.google.gson.reflect.TypeToken;
-import de.psandro.nickify.controller.message.MessageFormat;
-import de.psandro.nickify.controller.message.MessageId;
-import de.psandro.nickify.model.MessageEntity;
+import de.psandro.nickify.api.model.MessageEntity;
+import de.psandro.nickify.api.model.MessageFormat;
+import de.psandro.nickify.api.model.MessageId;
 
 import java.lang.reflect.Type;
 import java.util.Map;

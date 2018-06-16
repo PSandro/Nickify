@@ -5,7 +5,7 @@ import de.psandro.nickify.controller.NameTagManager;
 import de.psandro.nickify.controller.Permissions;
 import de.psandro.nickify.api.exception.PlayerAlreadyNickedException;
 import de.psandro.nickify.controller.message.IMessageManager;
-import de.psandro.nickify.controller.message.MessageId;
+import de.psandro.nickify.api.model.MessageId;
 import de.psandro.nickify.controller.team.Nickable;
 import de.psandro.nickify.misc.TeamViewFetcher;
 import lombok.AllArgsConstructor;
@@ -42,9 +42,9 @@ public final class NickCommand implements CommandExecutor {
         }
 
         if (args.length <= 0) {
-            try {
+            try { //TODO: pick random nick
                 final Nickable nickable = this.nameTagManager.getNickManager().nick(player, UUID.fromString("1588abbb-e45b-49e6-9e43-8b83c5d5f812"), teamViewFetcher.getRandomNickLayout());
-                this.messageManager.sendIfPresent(player, MessageId.NICK, ImmutableMap.of(MessageId.MessageSpacer.NICKNAME_SPACER, nickable.getName()));
+                this.messageManager.sendIfPresent(player, MessageId.NICK, ImmutableMap.of(MessageId.MessageSpacer.NICKNAME_SPACER, nickable.getFakeName()));
             } catch (PlayerAlreadyNickedException e) {
                 this.messageManager.sendIfPresent(player, MessageId.ALREADY_NICKED, ImmutableMap.of());
 
@@ -55,7 +55,7 @@ public final class NickCommand implements CommandExecutor {
         } else if (args.length == 1) {
             try {
                 Nickable nickable = this.nameTagManager.getNickManager().nick(player, UUID.fromString(args[0]), teamViewFetcher.getRandomNickLayout());
-                this.messageManager.sendIfPresent(player, MessageId.NICK, ImmutableMap.of(MessageId.MessageSpacer.NICKNAME_SPACER, nickable.getName()));
+                this.messageManager.sendIfPresent(player, MessageId.NICK, ImmutableMap.of(MessageId.MessageSpacer.NICKNAME_SPACER, nickable.getFakeName()));
             } catch (Exception e) {
                 e.printStackTrace();
                 this.messageManager.sendIfPresent(player, MessageId.UNKNOWN_ERROR, ImmutableMap.of(MessageId.MessageSpacer.ERROR, e.getMessage()));

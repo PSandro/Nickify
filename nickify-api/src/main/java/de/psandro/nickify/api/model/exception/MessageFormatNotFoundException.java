@@ -1,7 +1,7 @@
-package de.psandro.nickify.exception;
+package de.psandro.nickify.api.model.exception;
 
 import de.psandro.nickify.api.exception.NickifyException;
-import de.psandro.nickify.controller.message.MessageId;
+import de.psandro.nickify.api.model.MessageId;
 
 public final class MessageFormatNotFoundException extends NickifyException {
     public MessageFormatNotFoundException(MessageId messageId) {

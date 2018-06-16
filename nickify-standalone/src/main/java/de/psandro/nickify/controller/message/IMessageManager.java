@@ -1,5 +1,7 @@
 package de.psandro.nickify.controller.message;
 
+import de.psandro.nickify.api.model.MessageFormat;
+import de.psandro.nickify.api.model.MessageId;
 import org.bukkit.entity.Player;
 
 import java.util.Map;

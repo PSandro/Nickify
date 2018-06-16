@@ -1,4 +1,4 @@
-package de.psandro.nickify.controller.message;
+package de.psandro.nickify.api.model;
 
 import com.google.common.collect.Sets;
 import lombok.Getter;

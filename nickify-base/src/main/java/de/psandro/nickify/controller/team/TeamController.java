@@ -22,7 +22,7 @@ public final class TeamController {
 
     public void nick(final @NonNull Nickable nick, @NonNull Set<UUID> exceptions) {
         this.teamInfo.setNickEntity(Optional.of(nick));
-        final TeamView nickTeamView = TeamViewFactory.createTeamView(nick.getName(), nick.getTeamViewLayout());
+        final TeamView nickTeamView = TeamViewFactory.createTeamView(nick.getFakeGameProfile().getName(), nick.getTeamViewLayout());
         this.teamInfo.getObservers().stream().filter(observerEntity -> !exceptions.contains(observerEntity)).forEach(observerEntity -> {
             if (!observerEntity.getUuid().equals(this.teamInfo.getOwner().getUniqueId())) {
                 observerEntity.changeName(nickTeamView);

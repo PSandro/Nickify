@@ -18,12 +18,12 @@ public final class CachedNickEntity implements AdvancedNickEntity {
     private long latestUse = 0;
 
     @Override
-    public String getName() {
+    public String getFakeName() {
         return this.fakeProfile.getName();
     }
 
     @Override
-    public UUID getUniqueId() {
+    public UUID getFakeUniqueId() {
         return this.fakeProfile.getUUID();
     }
 

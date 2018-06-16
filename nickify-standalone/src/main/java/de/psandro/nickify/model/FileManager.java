@@ -6,11 +6,10 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import de.psandro.nickify.api.model.*;
 import de.psandro.nickify.api.team.TeamViewLayout;
-import de.psandro.nickify.controller.message.MessageFormat;
-import de.psandro.nickify.controller.message.MessageId;
-import de.psandro.nickify.model.serialisation.MessageEntitySerializer;
-import de.psandro.nickify.model.serialisation.TeamViewPresetSerializer;
+import de.psandro.nickify.api.model.serialisation.MessageEntitySerializer;
+import de.psandro.nickify.api.model.serialisation.TeamViewPresetSerializer;
 
 import java.io.File;
 import java.io.IOException;
@@ -35,6 +34,7 @@ public final class FileManager {
         messageFormats.put(MessageId.NICK, new MessageFormat("&6You received following nickname: %nickname%", MessageId.NICK, true));
         messageFormats.put(MessageId.UNKNOWN_ERROR, new MessageFormat("&cAn unknown error occured: %error%", MessageId.UNKNOWN_ERROR, true));
         messageFormats.put(MessageId.NO_PERMISSION, new MessageFormat("&cYou don't have permission to perform this command: %command%", MessageId.NO_PERMISSION, true));
+        messageFormats.put(MessageId.UNNICK, new MessageFormat("&aYou are not longer nicked!", MessageId.UNNICK, true));
 
 
         DEFAULT_MESSAGE_ENTITY = new MessageEntity(messageFormats);

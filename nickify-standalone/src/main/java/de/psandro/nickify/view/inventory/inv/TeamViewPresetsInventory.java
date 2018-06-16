@@ -1,6 +1,6 @@
 package de.psandro.nickify.view.inventory.inv;
 
-import de.psandro.nickify.model.TeamViewPreset;
+import de.psandro.nickify.api.model.TeamViewPreset;
 import de.psandro.nickify.view.inventory.AbstractDynamicInventory;
 import de.psandro.nickify.view.inventory.AbstractMultisiteInventory;
 import de.psandro.nickify.view.inventory.InventoryActionCallback;

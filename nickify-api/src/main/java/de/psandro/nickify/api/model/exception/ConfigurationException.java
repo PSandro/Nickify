@@ -1,4 +1,4 @@
-package de.psandro.nickify.exception;
+package de.psandro.nickify.api.model.exception;
 
 import de.psandro.nickify.api.exception.NickifyException;
 

@@ -1,9 +1,10 @@
 package de.psandro.nickify.model;
 
+import de.psandro.nickify.api.model.MessageEntity;
 import de.psandro.nickify.controller.message.IMessageManager;
-import de.psandro.nickify.controller.message.MessageEditor;
-import de.psandro.nickify.controller.message.MessageFormat;
-import de.psandro.nickify.controller.message.MessageId;
+import de.psandro.nickify.api.model.MessageEditor;
+import de.psandro.nickify.api.model.MessageFormat;
+import de.psandro.nickify.api.model.MessageId;
 import org.bukkit.entity.Player;
 
 import java.util.Map;

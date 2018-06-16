@@ -3,7 +3,7 @@ package de.psandro.nickify.view.command;
 import com.google.common.collect.ImmutableMap;
 import de.psandro.nickify.controller.NameTagManager;
 import de.psandro.nickify.controller.message.IMessageManager;
-import de.psandro.nickify.controller.message.MessageId;
+import de.psandro.nickify.api.model.MessageId;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import org.bukkit.command.Command;
@@ -27,7 +27,7 @@ public final class UnnickCommand implements CommandExecutor {
 
         try {
             this.nameTagManager.getNickManager().unnick(player);
-            this.messageManager.sendIfPresent(player, MessageId.NICK, ImmutableMap.of());
+            this.messageManager.sendIfPresent(player, MessageId.UNNICK, ImmutableMap.of());
         } catch (Exception e) {
             e.printStackTrace();
             this.messageManager.sendIfPresent(player, MessageId.UNKNOWN_ERROR, ImmutableMap.of(MessageId.MessageSpacer.ERROR, e.getMessage()));

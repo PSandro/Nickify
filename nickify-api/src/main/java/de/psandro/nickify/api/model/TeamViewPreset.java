@@ -1,4 +1,4 @@
-package de.psandro.nickify.model;
+package de.psandro.nickify.api.model;
 
 import de.psandro.nickify.api.team.TeamViewLayout;
 import lombok.AllArgsConstructor;

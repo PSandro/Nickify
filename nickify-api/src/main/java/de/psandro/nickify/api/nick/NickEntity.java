@@ -5,8 +5,8 @@ import java.util.UUID;
 
 public interface NickEntity {
 
-    String getName();
+    String getFakeName();
 
-    UUID getUniqueId();
+    UUID getFakeUniqueId();
 
 }

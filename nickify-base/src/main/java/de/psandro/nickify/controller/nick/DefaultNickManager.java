@@ -40,12 +40,12 @@ public class DefaultNickManager implements NickManager {
 
     @Override
     public NickEntity getNickEntity(String nickname) {
-        return this.nickableMap.values().parallelStream().filter(entity -> entity.getName().equalsIgnoreCase(nickname)).findAny().orElse(null);
+        return this.nickableMap.values().parallelStream().filter(entity -> entity.getFakeName().equalsIgnoreCase(nickname)).findAny().orElse(null);
     }
 
     @Override
     public NickEntity getNickEntity(UUID nickUniqueId) {
-        return this.nickableMap.values().parallelStream().filter(entity -> entity.getUniqueId().equals(nickUniqueId)).findAny().orElse(null);
+        return this.nickableMap.values().parallelStream().filter(entity -> entity.getFakeUniqueId().equals(nickUniqueId)).findAny().orElse(null);
     }
 
     @Override
@@ -63,10 +63,10 @@ public class DefaultNickManager implements NickManager {
         if (this.nickableMap.containsKey(player.getUniqueId()))
             throw new PlayerAlreadyNickedException(player.getName());
         final NickEntity existing = this.getNickEntity(uuid);
-        if (existing != null) throw new NickNameAlreadyInUse(existing.getName());
+        if (existing != null) throw new NickNameAlreadyInUse(existing.getFakeName());
 
         final CachedNickEntity entity = this.nickEntityFactory.getByUUID(uuid);
-        final NickedPlayer nickedPlayer = new NickedPlayer(new NickifyPlayer(player), entity.getName(), layout, entity.getFakeGameProfile(), exceptions);
+        final NickedPlayer nickedPlayer = new NickedPlayer(new NickifyPlayer(player), entity.getFakeName(), layout, entity.getFakeGameProfile(), exceptions);
         this.nickableMap.put(player.getUniqueId(), nickedPlayer);
         this.updatePlayer(player, nickedPlayer, exceptions);
         return nickedPlayer;

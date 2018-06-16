@@ -1,8 +1,7 @@
-package de.psandro.nickify.controller.message;
+package de.psandro.nickify.api.model;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import org.bukkit.ChatColor;
 
 import java.util.Set;
 
@@ -21,7 +20,6 @@ public class MessageEditor {
 
 
     public String buildMessage() {
-        return ChatColor.translateAlternateColorCodes('&', this.message);
+        return this.message.replaceAll("&", "§");
     }
-
 }

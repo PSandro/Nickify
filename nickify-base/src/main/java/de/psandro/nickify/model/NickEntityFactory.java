@@ -33,7 +33,7 @@ public final class NickEntityFactory implements INickEntityFactory {
     //Do not run in main Thread
     @Override
     public CachedNickEntity getByUUID(UUID uuid) throws ExecutionException, InterruptedException {
-        final Optional<CachedNickEntity> cached = this.availableNickEntitys.stream().filter(entity -> entity.getUniqueId().equals(uuid)).findAny();
+        final Optional<CachedNickEntity> cached = this.availableNickEntitys.stream().filter(entity -> entity.getFakeUniqueId().equals(uuid)).findAny();
 
         if (cached.isPresent()) {
             return cached.get();
@@ -51,7 +51,7 @@ public final class NickEntityFactory implements INickEntityFactory {
         Preconditions.checkNotNull(name, "The name cannot be null!");
         Preconditions.checkArgument(name.length() <= 16 && name.length() >= 3, "The name has a invalid length!");
 
-        final Optional<CachedNickEntity> cached = this.availableNickEntitys.stream().filter(entity -> entity.getName().equalsIgnoreCase(name)).findAny();
+        final Optional<CachedNickEntity> cached = this.availableNickEntitys.stream().filter(entity -> entity.getFakeName().equalsIgnoreCase(name)).findAny();
 
         if (cached.isPresent()) {
             return cached.get();

@@ -1,6 +1,9 @@
 package de.psandro.nickify.model;
 
-import de.psandro.nickify.exception.ConfigurationException;
+import de.psandro.nickify.api.model.MessageEntity;
+import de.psandro.nickify.api.model.SettingsEntity;
+import de.psandro.nickify.api.model.TeamViewPreset;
+import de.psandro.nickify.api.model.exception.ConfigurationException;
 import lombok.Getter;
 
 import java.io.Closeable;

@@ -1,10 +1,11 @@
-package de.psandro.nickify.controller.message;
+package de.psandro.nickify.api.model;
 
 
+import de.psandro.nickify.api.model.MessageEditor;
+import de.psandro.nickify.api.model.MessageId;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import org.bukkit.ChatColor;
 
 @EqualsAndHashCode
 public final class MessageFormat extends UnsafeMessage {
@@ -26,7 +27,7 @@ public final class MessageFormat extends UnsafeMessage {
 
 
     public String buildMessage() {
-        return ChatColor.translateAlternateColorCodes('&', this.rawMessage);
+        return this.rawMessage.replaceAll("&", "§");
     }
 
 }

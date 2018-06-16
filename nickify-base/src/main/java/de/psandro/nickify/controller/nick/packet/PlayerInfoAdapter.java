@@ -31,7 +31,6 @@ public final class PlayerInfoAdapter extends PacketAdapter {
         if (infoAction != EnumWrappers.PlayerInfoAction.ADD_PLAYER) return;
 
 
-
         final List<PlayerInfoData> playerInfoDataList = event.getPacket().getPlayerInfoDataLists().read(0);
         final List<PlayerInfoData> fakePlayerInfoDataList = playerInfoDataList
                 .stream()
@@ -42,6 +41,7 @@ public final class PlayerInfoAdapter extends PacketAdapter {
 
                     if (Bukkit.getPlayer(uuid) == null || nickable == null) return playerInfoData;
                     else {
+                        System.out.println("Faked profile: original= " + playerInfoData.getProfile().getName() + " fake= " + nickable.getFakeName());
                         return new PlayerInfoData(
                                 nickable.getFakeGameProfile(),
                                 playerInfoData.getLatency(),

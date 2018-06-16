@@ -1,5 +1,7 @@
 package de.psandro.nickify;
 
+import de.psandro.nickify.api.model.MessageEntity;
+import de.psandro.nickify.api.model.SettingsEntity;
 import de.psandro.nickify.controller.DefaultNameTagManager;
 import de.psandro.nickify.controller.NameTagManager;
 import de.psandro.nickify.controller.listener.RegisterListener;

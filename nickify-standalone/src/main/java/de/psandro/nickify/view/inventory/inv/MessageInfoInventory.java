@@ -1,7 +1,7 @@
 package de.psandro.nickify.view.inventory.inv;
 
-import de.psandro.nickify.controller.message.MessageFormat;
-import de.psandro.nickify.controller.message.UnsafeMessage;
+import de.psandro.nickify.api.model.MessageFormat;
+import de.psandro.nickify.api.model.UnsafeMessage;
 import de.psandro.nickify.model.ConfigManager;
 import de.psandro.nickify.view.inventory.AbstractDynamicInventory;
 import de.psandro.nickify.view.inventory.InventoryActionCallback;

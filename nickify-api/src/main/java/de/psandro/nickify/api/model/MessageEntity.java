@@ -1,7 +1,5 @@
-package de.psandro.nickify.model;
+package de.psandro.nickify.api.model;
 
-import de.psandro.nickify.controller.message.MessageFormat;
-import de.psandro.nickify.controller.message.MessageId;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

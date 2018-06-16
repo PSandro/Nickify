@@ -26,6 +26,7 @@ public final class ObserverEntity extends AbstractObserver {
         if (super.isIgnoreNameChange() && !force) return;
         final Player player = Bukkit.getPlayer(super.getUuid());
         if (player == null) return;
+        System.out.println("Namechange: from " + this.getTeamView().getOwner() + " to " + teamView.getOwner());
         this.despawnView();
         super.setTeamView(teamView);
         this.spawnView();
@@ -46,7 +47,7 @@ public final class ObserverEntity extends AbstractObserver {
     public void despawnView() {
         final Player player = Bukkit.getPlayer(this.getUuid());
         if (player == null) return;
-        TeamViewPacketBuilder.buildMemberRemovePacket(super.getTeamView()).sendPacket(player);
+        TeamViewPacketBuilder.buildRemovePacket(super.getTeamView()).sendPacket(player);
     }
 
     public void updateTeamView(TeamViewLayout layout) {

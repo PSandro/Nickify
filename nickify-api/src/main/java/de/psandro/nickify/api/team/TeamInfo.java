@@ -49,7 +49,7 @@ public class TeamInfo {
     public AssignedTeamViewLayout getDefaultActiveTeamViewLayout() {
         if (!this.nickEntity.isPresent()) return this.defaultTeamView;
         final NickEntity nickEntity = this.nickEntity.get();
-        return this.defaultTeamView.buildCustomAssignment(nickEntity.getName(), this.defaultTeamView.getTeamName());
+        return this.defaultTeamView.buildCustomAssignment(nickEntity.getFakeName(), this.defaultTeamView.getTeamName());
     }
 
 

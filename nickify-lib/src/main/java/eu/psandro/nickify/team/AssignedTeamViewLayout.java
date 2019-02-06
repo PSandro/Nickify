@@ -18,8 +18,6 @@ public abstract class AssignedTeamViewLayout extends TeamViewLayout {
         super(prefix, suffix, priority);
         this.owner = owner;
         this.teamName = teamName;
-        //DEBUG:
-        System.out.println("\n--Owner: " + this.owner + "\nTeamName:" + this.teamName + "\nLayout: " + prefix + suffix + "\n priority:" + priority);
     }
 
 

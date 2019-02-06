@@ -1,14 +1,5 @@
 language: java
 jdk: oraclejdk8
-script: mvn package
-deploy:
-  provider: releases
-  api_key:
-    secure: "AseWaRYfx0r2PuIXg83FTbfcOfMvnJFO1764khY0FhHBPZfXd8QTjrdrvXqQvKg9VlMPJNpnEhZ1Ggg8d7Z6ryG4YhSSve17GRc//veBQfyxeGBMuiQyEP/lpR7em8fBtjVXcKrrrcCG4dcZ4PWtBRMVnuIcpVtPpGLnsbJTIP0496VQZXKh2qLwdmBdn5j1NxH95+rwL5JZQA9eSsP471eDMaQXUvV8GeI/qEScRVKtzJPnctMSOJ0bA7MhoCuKlyvXhvIrb6mQ0Kwhxn6AzyobsXdklCWpw6gAy06iz9aMt1pT0Rd58PGnCMYAvISUpT4DwBtWRUjTS1OtNOPrOjQP+f05u6GjpS8rpuojvVYF8OKEILFsXFj4BGYnQV522KMVv/kG1RnNquWNblThcVNSe4fiv+dhmvqMEHnv9O6TAyzzCvRtXgIYCKCW3X2PzY9rgQUY71jZ+h6L6IyR5hFljtrZoerPmINGilhScGAZqWgxrf0pTCNTFfMYM/nhWyf4OP7x1Nts2FpKeBhNN5Ek2hqODz4hvGuxjMD7zJDre9D0GV4xhPQYJ37tKqUUxqQX1l9Fo56QyZWEebvRRvfDX6l225+n76jQdXKtuBtwmLAwFKIPvWYZJy02zIjF8DczKZ2w9q0EHjp3xOcp2hMEB/hj99XRYjDBOHtW5bE="
-  file: "./nickify-standalone/target/nickify-standalone.jar"
-  skip_cleanup: true
-  on:
-    tags: true
 cache:
   directories:
     - $HOME/.m2

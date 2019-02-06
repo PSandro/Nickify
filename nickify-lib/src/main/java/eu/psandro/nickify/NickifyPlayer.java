@@ -1,5 +1,6 @@
 package eu.psandro.nickify;
 
+import eu.psandro.nickify.nick.PlayerData;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
@@ -10,14 +11,12 @@ import java.util.UUID;
 
 @AllArgsConstructor
 @EqualsAndHashCode
-public final class NickifyPlayer implements NickifySpigotPlayer {
+public final class NickifyPlayer implements PlayerData {
 
-    private final @NonNull
+    private transient final @NonNull
     Player player;
 
-
-    @Override
-    public Player toSpigotPlayer() {
+    public Player getPlayer() {
         return this.player;
     }
 

@@ -32,8 +32,6 @@ public final class CachedNickEntity implements AdvancedNickEntity {
     }
 
 
-
-
     public static CachedNickEntity byAdvancedNickEntity(AdvancedNickEntity entity, long latestUse) {
         return new CachedNickEntity(entity.getFakeGameProfile(), latestUse);
     }

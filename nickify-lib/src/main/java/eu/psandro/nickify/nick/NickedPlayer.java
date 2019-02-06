@@ -16,13 +16,13 @@ import java.util.UUID;
 @Getter
 public final class NickedPlayer implements Nickable {
 
-    private final NickifyPlayerData playerData;
+    private final PlayerData playerData;
     private final Set<UUID> exceptions;
     private WrappedGameProfile fakeGameProfile;
     private TeamViewLayout teamViewLayout;
     private String fakeName;
 
-    NickedPlayer(final NickifyPlayerData nickifyPlayer, String nickname, TeamViewLayout layout, WrappedGameProfile gameProfile, @NonNull Set<UUID> exceptions) {
+    NickedPlayer(final PlayerData nickifyPlayer, String nickname, TeamViewLayout layout, WrappedGameProfile gameProfile, @NonNull Set<UUID> exceptions) {
         Preconditions.checkNotNull(nickifyPlayer, "The player cannot be null!");
         this.playerData = nickifyPlayer;
         this.fakeName = nickname;
@@ -32,7 +32,7 @@ public final class NickedPlayer implements Nickable {
     }
 
 
-    private static final WrappedGameProfile buildCustomProfile(final UUID uniqueId, final Nickable nickEntity) {
+    private static WrappedGameProfile buildCustomProfile(final UUID uniqueId, final Nickable nickEntity) {
         final WrappedGameProfile fakeGameProfile = new WrappedGameProfile(uniqueId, nickEntity.getFakeName());
         fakeGameProfile.getProperties().putAll(nickEntity.getFakeGameProfile().getProperties());
         return fakeGameProfile;

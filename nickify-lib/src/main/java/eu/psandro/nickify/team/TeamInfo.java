@@ -1,7 +1,7 @@
 package eu.psandro.nickify.team;
 
 import eu.psandro.nickify.nick.NickEntity;
-import eu.psandro.nickify.nick.NickifyPlayerData;
+import eu.psandro.nickify.nick.PlayerData;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NonNull;
@@ -12,7 +12,7 @@ import java.util.*;
 @Getter
 public class TeamInfo {
     private final @NonNull
-    NickifyPlayerData owner;
+    PlayerData owner;
     private @NonNull
     Optional<NickEntity> nickEntity;
     @Getter
@@ -22,14 +22,14 @@ public class TeamInfo {
     private @NonNull
     AssignedTeamViewLayout defaultTeamView;
 
-    public TeamInfo(final NickifyPlayerData owner, LinkedHashSet<AbstractObserver> observers, AssignedTeamViewLayout defaultTeamView, NickEntity nickEntity) {
+    public TeamInfo(final PlayerData owner, LinkedHashSet<AbstractObserver> observers, AssignedTeamViewLayout defaultTeamView, NickEntity nickEntity) {
         this.owner = owner;
         this.observers = observers;
         this.defaultTeamView = defaultTeamView;
         this.nickEntity = Optional.ofNullable(nickEntity);
     }
 
-    public TeamInfo(final NickifyPlayerData owner, LinkedHashSet<AbstractObserver> observers, AssignedTeamViewLayout defaultTeamView) {
+    public TeamInfo(final PlayerData owner, LinkedHashSet<AbstractObserver> observers, AssignedTeamViewLayout defaultTeamView) {
         this(owner, observers, defaultTeamView, null);
     }
 

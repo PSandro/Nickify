@@ -1,17 +1,16 @@
 package eu.psandro.nickify.team;
 
 import eu.psandro.nickify.NickifyPlayer;
+import lombok.NoArgsConstructor;
 import org.bukkit.entity.Player;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
+@NoArgsConstructor
 public final class DefaultTeamManager implements TeamManager {
 
     private final Map<UUID, TeamController> teamBindings = new HashMap<>();
-
-    public DefaultTeamManager() {
-    }
 
     @Override
     public TeamController createTeamController(Player player, TeamView defaultTeamView, LinkedHashSet<AbstractObserver> observers, Nickable nickable) {

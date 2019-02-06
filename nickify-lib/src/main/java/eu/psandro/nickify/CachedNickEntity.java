@@ -4,7 +4,6 @@ import com.comphenix.protocol.wrappers.WrappedGameProfile;
 import eu.psandro.nickify.team.AdvancedNickEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NonNull;
 
 import java.util.UUID;
 
@@ -13,7 +12,6 @@ import java.util.UUID;
 public final class CachedNickEntity implements AdvancedNickEntity {
 
     private final WrappedGameProfile fakeProfile;
-    @NonNull
     @Getter
     private long latestUse = 0;
 

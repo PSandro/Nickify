@@ -10,7 +10,7 @@ public final class PlayerAddTeamPacket extends TeamPacket {
     }
 
     public List<String> getPlayers() {
-        return (List) this.handle.getSpecificModifier(Collection.class).read(0);
+        return (List<String>) this.handle.getSpecificModifier(Collection.class).read(0);
     }
 
     public void setPlayers(List<String> value) {

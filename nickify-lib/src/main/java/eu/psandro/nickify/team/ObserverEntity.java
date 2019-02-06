@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 import java.util.UUID;
 
 @Getter
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = true)
 public final class ObserverEntity extends AbstractObserver {
 
     public ObserverEntity(UUID uuid, AssignedTeamViewLayout teamView, boolean ignoreNameChange) {

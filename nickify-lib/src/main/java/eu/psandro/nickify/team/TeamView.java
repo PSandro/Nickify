@@ -4,7 +4,7 @@ import eu.psandro.nickify.team.wrapper.*;
 import lombok.*;
 
 
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = true)
 @Getter
 @Setter
 @ToString

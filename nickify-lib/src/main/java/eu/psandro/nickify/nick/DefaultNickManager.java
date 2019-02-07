@@ -86,6 +86,7 @@ public class DefaultNickManager implements NickManager {
         this.unnick(player, new HashSet<>());
     }
 
+    //TODO: move to NickedPlayer or NickifyPlayer
     private void updatePlayer(final Player player, final Nickable nickable, Set<UUID> exceptions) {
         final Collection<? extends Player> players = player.getWorld().getPlayers();
         players.stream().filter(p -> p.canSee(player)).forEach(p -> {

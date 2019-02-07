@@ -30,6 +30,24 @@ public final class NickifyPlayer implements PlayerData {
         return this.player.getUniqueId();
     }
 
+    public void nick(String nickname) {
+        //TODO: implement this
+        this.update();
+    }
+
+    public void setPrefix(String nickname) {
+        //TODO: implement this
+        this.update();
+    }
+    public void setSuffix(String nickname) {
+        //TODO: implement this
+        this.update();
+    }
+
+    private void update() {
+        //TODO: implement this
+    }
+
 
     public static NickifyPlayer fromBukkitPlayer(@NonNull final Player player) {
         return new NickifyPlayer(player);

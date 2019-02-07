@@ -2,21 +2,19 @@ package eu.psandro.nickify.team;
 
 import lombok.*;
 
+@Data
+@NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
-@Getter
-@Setter
-@ToString
 public class TeamViewLayout {
 
     private @NonNull
-    String prefix;
+    String prefix = "";
     private @NonNull
-    String suffix;
+    String suffix = "";
     private @NonNull
-    int priority;
+    int priority = 0;
 
-    public void executeOn(@NonNull TeamViewLayout layout) {
+    public void applyOn(@NonNull TeamViewLayout layout) {
         layout.setPrefix(this.prefix);
         layout.setSuffix(this.suffix);
         layout.setPriority(this.priority);

@@ -62,7 +62,7 @@ public final class TeamViewFactory {
 
         final String teamName = buildTeamName(owner, teamViewLayout.getPriority());
 
-        return new TeamView(teamViewLayout, owner, teamName);
+        return new TeamView(owner, teamName, teamViewLayout);
     }
 
     public static void resetCounter() {

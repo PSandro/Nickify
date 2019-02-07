@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>eu.psandro</groupId>
-    <artifactId>Nickify</artifactId>
+    <artifactId>nickify</artifactId>
     <version>1.1-SNAPSHOT</version>
     <modules>
         <module>nickify-lib</module>

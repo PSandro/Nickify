@@ -1,4 +1,4 @@
-package eu.psandro.nickify;
+package eu.psandro.nickify.misc;
 
 import com.comphenix.protocol.wrappers.WrappedGameProfile;
 import com.comphenix.protocol.wrappers.WrappedSignedProperty;

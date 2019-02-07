@@ -1,4 +1,4 @@
-package eu.psandro.nickify;
+package eu.psandro.nickify.misc;
 
 import com.google.gson.*;
 import eu.psandro.nickify.team.TeamViewLayout;

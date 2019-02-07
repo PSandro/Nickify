@@ -9,9 +9,9 @@ import org.bukkit.entity.Player;
 import java.lang.reflect.InvocationTargetException;
 
 public abstract class AbstractPacket {
-    protected PacketContainer handle;
+    PacketContainer handle;
 
-    protected AbstractPacket(PacketContainer handle, PacketType type) {
+    AbstractPacket(PacketContainer handle, PacketType type) {
         if (handle == null) {
             throw new IllegalArgumentException("Packet handle cannot be null.");
         } else if (!Objects.equal(handle.getType(), type)) {
@@ -21,7 +21,7 @@ public abstract class AbstractPacket {
         }
     }
 
-    public PacketContainer getHandle() {
+    private PacketContainer getHandle() {
         return this.handle;
     }
 

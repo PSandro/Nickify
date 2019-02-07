@@ -1,4 +1,4 @@
-package eu.psandro.nickify;
+package eu.psandro.nickify.misc;
 
 
 import com.comphenix.protocol.wrappers.WrappedGameProfile;
@@ -31,7 +31,7 @@ public final class ProfileFetcher {
     private static final Cache<UUID, WrappedGameProfile> profileCache = CacheBuilder.newBuilder().expireAfterWrite(1, TimeUnit.HOURS).build();
     private static final Cache<String, UUID> uuidCache = CacheBuilder.newBuilder().expireAfterWrite(10, TimeUnit.MINUTES).build();
 
-    public static final Future<UUID> fetchUUID(final String name) {
+    static Future<UUID> fetchUUID(final String name) {
         return executorService.submit(() -> {
             final UUID cachedUUID = uuidCache.getIfPresent(name);
 
@@ -58,7 +58,7 @@ public final class ProfileFetcher {
         });
     }
 
-    public static final Future<WrappedGameProfile> fetchProfile(final String name) throws InterruptedException, ExecutionException, TimeoutException {
+    public static Future<WrappedGameProfile> fetchProfile(final String name) throws InterruptedException, ExecutionException, TimeoutException {
         UUID uuid = null;
         try {
             uuid = fetchUUID(name).get(5, TimeUnit.SECONDS);
@@ -70,7 +70,7 @@ public final class ProfileFetcher {
 
     }
 
-    public static final Future<WrappedGameProfile> fetchProfile(final UUID uuid) {
+    static Future<WrappedGameProfile> fetchProfile(final UUID uuid) {
         return executorService.submit(() -> {
             final WrappedGameProfile cachedProfile = profileCache.getIfPresent(uuid);
 

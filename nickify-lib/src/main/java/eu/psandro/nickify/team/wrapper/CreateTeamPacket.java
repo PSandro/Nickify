@@ -1,6 +1,7 @@
 package eu.psandro.nickify.team.wrapper;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public final class CreateTeamPacket extends TeamPacket {
@@ -8,6 +9,14 @@ public final class CreateTeamPacket extends TeamPacket {
 
     public CreateTeamPacket(String name) {
         super(name, 0);
+    }
+
+    public CreateTeamPacket(String name, String prefix, String suffix, String ownerName) {
+        super(name, 0);
+        this.setDisplayName(name);
+        this.setPrefix(prefix);
+        this.setSuffix(suffix);
+        this.setPlayers(Collections.singletonList(ownerName));
     }
 
     public String getDisplayName() {
@@ -45,7 +54,6 @@ public final class CreateTeamPacket extends TeamPacket {
     public void setPlayers(List<String> value) {
         this.handle.getSpecificModifier(Collection.class).write(0, value);
     }
-
 
 
 }

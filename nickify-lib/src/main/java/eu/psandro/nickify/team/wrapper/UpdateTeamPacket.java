@@ -6,6 +6,13 @@ public final class UpdateTeamPacket extends TeamPacket {
         super(name, 2);
     }
 
+    public UpdateTeamPacket(String name, String prefix, String suffix) {
+        super(name, 2);
+        this.setDisplayName(name);
+        this.setPrefix(prefix);
+        this.setSuffix(suffix);
+    }
+
     public String getDisplayName() {
         return (String) this.handle.getStrings().read(1);
     }

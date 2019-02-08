@@ -1,8 +1,7 @@
 package eu.psandro.nickify;
 
-import eu.psandro.nickify.nick.NickProcessor;
-import eu.psandro.nickify.team.TeamProcessor;
 import eu.psandro.nickify.team.TeamViewLayout;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
@@ -11,17 +10,17 @@ import org.bukkit.entity.Player;
 import java.util.UUID;
 
 
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.MODULE)
 @EqualsAndHashCode
 public final class NickifyPlayer {
 
-    private final @NonNull
-    NickProcessor nickProcessor;
-    private final @NonNull
-    TeamProcessor teamProcessor;
-
     private transient final @NonNull
     Player player;
+
+    private final @NonNull
+    Tag tag;
+
+    private final Tag nickTag;
 
     public String getRealName() {
         return this.player.getName();
@@ -36,18 +35,18 @@ public final class NickifyPlayer {
         this.update();
     }
 
-    public void setLayout(TeamViewLayout layout) {
-        //TODO: implement this
+    public void setLayout(@NonNull TeamViewLayout layout) {
+        layout.applyOn(this.tag.getTeamView());
         this.update();
     }
 
-    public void setPrefix(String nickname) {
-        //TODO: implement this
+    public void setPrefix(String prefix) {
+        this.tag.getTeamView().setPrefix(prefix);
         this.update();
     }
 
-    public void setSuffix(String nickname) {
-        //TODO: implement this
+    public void setSuffix(String suffix) {
+        this.tag.getTeamView().setSuffix(suffix);
         this.update();
     }
 
@@ -68,4 +67,5 @@ public final class NickifyPlayer {
             }.runTaskLater(this.plugin, 2);
         });*/
     }
+
 }

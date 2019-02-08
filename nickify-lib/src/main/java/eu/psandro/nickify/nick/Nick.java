@@ -3,10 +3,10 @@ package eu.psandro.nickify.nick;
 import java.util.UUID;
 
 
-public abstract class Nick {
+public interface Nick {
 
-    public abstract String getFakeName();
+    String getFakeName();
 
-    public abstract UUID getFakeUniqueId();
+    UUID getFakeUniqueId();
 
 }

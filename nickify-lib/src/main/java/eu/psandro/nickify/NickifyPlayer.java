@@ -5,11 +5,14 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+
 import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
 
+@RequiredArgsConstructor(access = AccessLevel.MODULE)
 @AllArgsConstructor(access = AccessLevel.MODULE)
 @EqualsAndHashCode
 public final class NickifyPlayer {
@@ -20,7 +23,7 @@ public final class NickifyPlayer {
     private final @NonNull
     Tag tag;
 
-    private final Tag nickTag;
+    private Tag nickTag;
 
     public String getRealName() {
         return this.player.getName();

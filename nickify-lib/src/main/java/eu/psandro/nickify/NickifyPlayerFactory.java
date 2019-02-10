@@ -29,12 +29,9 @@ public class NickifyPlayerFactory {
             );
         }
 
-        final NickProcessor nickProcessor = null; //TODO: init nickProcessor
-        final TeamProcessor teamProcessor = null; //TODO: init teamProcessor
-
         final Tag tag = null; //TODO: init tag
 
-        final NickifyPlayer nickifyPlayer = new NickifyPlayer(player, nickProcessor, teamProcessor, tag);
+        final NickifyPlayer nickifyPlayer = new NickifyPlayer(player, tag);
 
         players.add(nickifyPlayer);
         return nickifyPlayer;

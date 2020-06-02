@@ -9,7 +9,7 @@ public abstract class TeamPacket extends AbstractPacket {
 
 
     public TeamPacket(final String name, int mode) {
-        super(new PacketContainer(TYPE), TYPE);
+        super(new PacketContainer(TYPE));
         this.handle.getModifier().writeDefaults();
         this.setName(name);
         this.setMode(mode);
@@ -24,7 +24,7 @@ public abstract class TeamPacket extends AbstractPacket {
     }
 
     public int getMode() {
-        return ((Integer) this.handle.getIntegers().read(1)).intValue();
+        return (Integer) this.handle.getIntegers().read(1);
     }
 
     private void setMode(int value) {

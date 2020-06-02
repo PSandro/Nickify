@@ -1,21 +1,17 @@
 package eu.psandro.nickify.team.wrapper;
 
-import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.events.PacketContainer;
-import com.google.common.base.Objects;
 import org.bukkit.entity.Player;
 
 import java.lang.reflect.InvocationTargetException;
 
 public abstract class AbstractPacket {
-    PacketContainer handle;
+    transient PacketContainer handle;
 
-    AbstractPacket(PacketContainer handle, PacketType type) {
+    AbstractPacket(PacketContainer handle) {
         if (handle == null) {
             throw new IllegalArgumentException("Packet handle cannot be null.");
-        } else if (!Objects.equal(handle.getType(), type)) {
-            throw new IllegalArgumentException(handle.getHandle() + " is not a packet of type " + type);
         } else {
             this.handle = handle;
         }
